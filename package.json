@@ -1,0 +1,39 @@
+{
+  "name": "readmybio",
+  "version": "0.0.0",
+  "description": "Projet de Patrice",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/OriaLogic/readmybio.git"
+  },
+  "keywords": [
+    "Family",
+    "sharing",
+    "biography",
+    "community",
+    "life"
+  ],
+  "author": "Lucas Bonnet",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/OriaLogic/readmybio/issues"
+  },
+  "devDependencies": {
+    "webpack": "~1.13.1",
+    "expose-loader": "~0.7.1",
+    "imports-loader": "~0.6.5",
+    "exports-loader": "~0.6.3",
+    "chunk-manifest-webpack-plugin": "~0.1.0"
+  },
+  "dependencies": {
+    "lodash": "~4.14.1",
+    "jquery": "~3.1.0"
+  }
+}
