@@ -4,13 +4,13 @@ This README would normally document whatever steps are necessary to get the
 application up and running.
 
 Useful commands
-* webpack in development: ```webpack --config config/webpack/development.config.js --watch --colors```
+* webpack in development: <tt>webpack --config config/webpack/development.config.js --watch --colors</tt>
 
 Things you may want to cover:
 
-* ```Rails version => 4.2.7```
+* <tt>Rails version => 4.2.7</tt>
 
-* ```Ruby version => 2.3.0```
+* <tt>Ruby version => 2.3.0</tt>
 
 * System dependencies
 
