@@ -1,6 +1,7 @@
 require('expose?$!expose?jQuery!jquery');
 
+import React from 'react';
 import {render} from 'react-dom';
-var App = require('./components/App.react');
+import App from './components/App';
 
 render(<App/>, document.getElementById('app'))
