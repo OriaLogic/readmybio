@@ -21,7 +21,7 @@ config.output = {
   filename: 'application-bundle.js',
 
   // if the webpack code-splitting feature is enabled, this is the path it'll use to download bundles
-  publicPath: '/assets',
+  publicPath: '/assets/',
 
   devtoolModuleFilenameTemplate: '[resourcePath]',
   devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]',
@@ -39,14 +39,14 @@ config.resolve = {
 };
 
 config.module = {
-  loaders: [{
+  loaders: [
+    {
       test : /\.jsx?/,
       include : path.join(__dirname, '../', '../', 'app', 'frontend', 'javascripts'),
-      loader : 'babel',
-      query: {
-        presets: ['es2015', 'react']
-      }
-    }, {
+      loaders : ['react-hot', 'babel']
+    },
+
+    {
       test: /\.(png|woff|woff2|eot|ttf|svg)$/,
       loader: 'url-loader?limit=100000'
     }
