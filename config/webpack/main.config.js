@@ -7,7 +7,9 @@ var config = module.exports = {
   context: path.join(__dirname, '../', '../'),
 
   // the main entry point for our application's frontend JS
-  entry: './app/frontend/javascripts/entry.js',
+  entry: {
+    app: ['bootstrap-loader', './app/frontend/javascripts/entry.js']
+  }
 };
 
 config.output = {
@@ -16,7 +18,7 @@ config.output = {
   path: path.join(__dirname, '../', '../', 'app', 'assets', 'javascripts'),
 
   // the filename of the compiled bundle, e.g. app/assets/javascripts/bundle.js
-  filename: 'public-bundle.js',
+  filename: 'application-bundle.js',
 
   // if the webpack code-splitting feature is enabled, this is the path it'll use to download bundles
   publicPath: '/assets',
@@ -29,7 +31,7 @@ config.resolve = {
 
   // tell webpack which extensions to auto search when it resolves modules. With this,
   // you'll be able to do `require('./utils')` instead of `require('./utils.js')`
-  extensions: ['', '.js', '.jsx'],
+  extensions: ['', '.js'],
 
   // by default, webpack will search in `web_modules` and `node_modules`. Because we're using
   // Bower, we want it to look in there too
@@ -37,11 +39,16 @@ config.resolve = {
 };
 
 config.module = {
-  loaders: [
-    {
+  loaders: [{
       test : /\.jsx?/,
       include : path.join(__dirname, '../', '../', 'app', 'frontend', 'javascripts'),
-      loader : 'babel'
+      loader : 'babel',
+      query: {
+        presets: ['es2015', 'react']
+      }
+    }, {
+      test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+      loader: 'url-loader?limit=100000'
     }
   ]
 }
@@ -50,5 +57,6 @@ config.plugins = [
   new webpack.ProvidePlugin({
     $: 'jquery',
     jQuery: 'jquery',
+    'window.jQuery': 'jquery'
   })
 ];

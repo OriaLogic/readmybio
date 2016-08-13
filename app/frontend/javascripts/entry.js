@@ -1,7 +1,11 @@
-require('expose?$!expose?jQuery!jquery');
-
 import React from 'react';
-import {render} from 'react-dom';
-import App from './components/App';
+import { render } from 'react-dom';
+import { Router, Route, browserHistory } from 'react-router'
 
-render(<App/>, document.getElementById('app'))
+import App from './components/App.react';
+
+render((
+  <Router history={browserHistory}>
+    <Route path="/" component={App} />
+  </Router>
+), document.getElementById('root'))
