@@ -1,0 +1,28 @@
+#devise-container {
+  height: 100%;
+  color: white;
+  background-color: $brand-primary;
+  padding-top: 100px;
+
+  h2, h3 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 30px;
+  }
+
+  .form-container {
+    width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background: $white;
+    text-align: left;
+    border-radius: 6px;
+    color: $text-color;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+    a { color: $white; }
+  }
+}

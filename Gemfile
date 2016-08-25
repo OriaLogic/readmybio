@@ -4,9 +4,12 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.7'
+
 # Use mongoid as the database for Active Record
 gem 'mongoid', '~> 5.1.0'
 gem 'bson_ext'
+gem 'mongoid_rails_migrations'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -19,6 +22,7 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 gem "slim-rails"
+gem "devise"
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -33,6 +37,7 @@ end
 
 group :development do
   gem "better_errors"
+  gem "binding_of_caller"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end

@@ -8,7 +8,8 @@ var config = module.exports = {
 
   // the main entry point for our application's frontend JS
   entry: {
-    app: ['bootstrap-loader', './app/frontend/javascripts/entry.js']
+    app: ['babel-polyfill', 'bootstrap-loader', './app/frontend/javascripts/entry.js'],
+    devise: ['bootstrap-loader']
   }
 };
 
@@ -18,7 +19,7 @@ config.output = {
   path: path.join(__dirname, '../', '../', 'app', 'assets', 'javascripts'),
 
   // the filename of the compiled bundle, e.g. app/assets/javascripts/bundle.js
-  filename: 'application-bundle.js',
+  filename: '[name]-bundle.js',
 
   // if the webpack code-splitting feature is enabled, this is the path it'll use to download bundles
   publicPath: '/assets/',
@@ -43,11 +44,20 @@ config.module = {
     {
       test : /\.jsx?/,
       include : path.join(__dirname, '../', '../', 'app', 'frontend', 'javascripts'),
-      loaders : ['react-hot', 'babel']
+      loaders : ['react-hot']
+    },
+    {
+      test : /\.jsx?/,
+      include : path.join(__dirname, '../', '../', 'app', 'frontend', 'javascripts'),
+      loader : 'babel-loader',
+      query: {
+        plugins: ['transform-runtime'],
+        presets: ['es2015', 'stage-0', 'react'],
+      }
     },
 
     {
-      test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+      test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/,
       loader: 'url-loader?limit=100000'
     }
   ]

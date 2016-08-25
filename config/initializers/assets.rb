@@ -3,7 +3,7 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
-Rails.application.config.assets.precompile += %w(bundle.js)
+Rails.application.config.assets.precompile += %w(bundle.js devise.js)
 
 # Rails.application.config.assets.configure do |env|
 #   env.unregister_postprocessor 'application/javascript', Sprockets::SafetyColons

@@ -1,0 +1,21 @@
+html, body {
+  height: 100%;
+}
+
+#app-main-container {
+  padding-top: 70px;
+}
+
+.general-top-alert {
+  top: 0px;
+  z-index: 1031;
+  border-top: 0px;
+  margin-bottom: 0px;
+  left: 50%;
+  position: absolute;
+  width: 400px;
+  margin-left: -200px;
+  text-align: center;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}

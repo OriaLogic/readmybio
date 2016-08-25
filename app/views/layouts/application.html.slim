@@ -6,8 +6,9 @@ html
     = csrf_meta_tags
     
   body
+    = render partial: "shared/flash_messages", flash: flash 
     = yield
     
     = webpack_manifest_script
-    = webpack_bundle_tag 'common'
-    = webpack_bundle_tag 'application'
+    = webpack_bundle_tag 'common', dev_server: true
+    = webpack_bundle_tag 'app', dev_server: true

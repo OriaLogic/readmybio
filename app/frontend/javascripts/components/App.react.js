@@ -1,21 +1,17 @@
 import React from 'react';
-import Para from './Para.react';
+import TopNav from './layout/TopNav.react';
 
 class App extends React.Component {
   render () {
     return (
       <div>
-        <h1>Mon app</h1>
-        <button
-          className='btn btn-danger'>
-          Click me
-        </button>
-        <button
-          className='btn btn-success'>
-          Click ma chatte
-        </button>
+        <TopNav />
 
-        <Para />
+        <div
+          className='container-fluid'
+          id='app-main-container'>
+          { this.props.children }
+        </div>
       </div>
     );
   }

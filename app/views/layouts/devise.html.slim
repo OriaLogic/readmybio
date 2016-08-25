@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Readmybio
+    = stylesheet_link_tag 'application', media: 'all'
+    = csrf_meta_tags
+    
+  body
+    = render partial: "shared/flash_messages", flash: flash 
+    
+    #devise-container
+      = yield
+    
+    = javascript_include_tag 'devise'
+    = webpack_bundle_tag 'common', dev_server: true
+    = webpack_bundle_tag 'devise', dev_server: true
