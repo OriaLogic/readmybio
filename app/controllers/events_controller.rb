@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   def index
-    render_react
+    byebug
+    # render_react
   end
 
   def new

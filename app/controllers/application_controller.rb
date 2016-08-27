@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :authenticate_user!, unless: :devise_controller?
 
+  def index
+    render_react
+  end
+
   protected
   def authenticate_user!
     if user_signed_in?
