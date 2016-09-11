@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import TopNav from './layout/TopNav.react';
+import Loader from './loaders/Loader.react';
 
-class App extends React.Component {
+class AppComponent extends Component {
+  static PropTypes = {
+    userLoading: PropTypes.bool.isRequired
+  }
+
   render () {
+    const { userLoading } = this.props;
+
     return (
-      <div>
+      <div
+        style={{ position: 'relative' }}>
         <TopNav />
+
+        <Loader loading={userLoading} />
 
         <div
           className='container-fluid'
@@ -17,4 +27,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default AppComponent;

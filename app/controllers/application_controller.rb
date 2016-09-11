@@ -21,6 +21,26 @@ class ApplicationController < ActionController::Base
     render '/root', layout: 'application'
   end
 
+  def normalize_for_json(obj)
+    if obj.is_a? Mongoid::Criteria
+      return normalize_for_json obj.to_a
+    elsif obj.is_a? Mongoid::Document
+      return normalize_for_json obj.attributes
+    elsif obj.is_a? Array
+      return obj.map { normalize_for_json obj }
+    elsif obj.is_a? Hash
+      new_obj = {}
+      new_obj['id'] = obj['_id'].to_s
+      obj.each do |k, v|
+        new_obj[k] = normalize_for_json v
+      end
+      new_obj.delete '_id'
+      return new_obj
+    else
+      return obj
+    end
+  end
+
   private
   def after_sign_out_path_for(resource_or_scope)
     user_session_path

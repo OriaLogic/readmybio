@@ -36,4 +36,8 @@ module ApplicationHelper
       flash_type.to_s
     end
   end
+
+  def setup_javascript_env
+    "rails_env = '#{Rails.env}'"
+  end
 end

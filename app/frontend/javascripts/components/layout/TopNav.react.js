@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import NavbarDropdown from '../dropdowns/NavbarDropdown.react';
+import ProfileDropdown from '../../containers/layout/ProfileDropdown.react';
 
 class TopNav extends React.Component {
   render () {
@@ -23,38 +23,10 @@ class TopNav extends React.Component {
             </Link>
           </div>
 
-          <ul
-            className="nav navbar-nav navbar-right">
-            <NavbarDropdown
-              externalLinkContent={(
-                <span>
-                  <i
-                    className='glyphicon glyphicon-user'
-                  />
-                  {" Profile "}
-                  <span className="caret" />
-                </span>
-              )}>
-              <li>
-                <a
-                  data-method='delete'
-                  href='/users/sign_out'>
-                  Log out
-                </a>
-              </li>
-            </NavbarDropdown>
-          </ul>
+          <ProfileDropdown />
         </div>
       </nav>
     );
-  }
-
-  logout = e => {
-    $.ajax({
-      method: 'delete',
-      url: '/users/sign_out',
-      success: () => window.location.replace("/users/sign_in")
-    })
   }
 }
 

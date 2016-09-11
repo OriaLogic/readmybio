@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import RouteHelper from '../../helpers/Route';
-
-console.log(RouteHelper, RouteHelper.NewEventPath())
+import { NewEventPath } from '../../helpers/Routes';
 
 class EventsIndex extends React.Component {
   render () {
@@ -10,13 +8,13 @@ class EventsIndex extends React.Component {
       <div
         style={{ position: 'relative' }}>
         <h1>
-          EventsIndex
+          EventsIndex alright?
         </h1>
 
         <Link
           className='btn btn-default'
           style={{ position: 'absolute', right: 0, top: 3 }}
-          to={RouteHelper.NewEventPath()}>
+          to={NewEventPath()}>
           New Event
         </Link>
       </div>

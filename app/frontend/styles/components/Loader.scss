@@ -1,0 +1,11 @@
+div.loader {
+  position: absolute;
+  z-index: 1500;
+  background: white;
+  opacity: 0.5;
+
+  &.loading {
+    width: 100%;
+    height: 100%;
+  }
+}

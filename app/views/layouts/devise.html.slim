@@ -11,6 +11,9 @@ html
     #devise-container
       = yield
     
+    / Must stay on top of the other script
+    = javascript_tag(setup_javascript_env)
+      
     = javascript_include_tag 'devise'
     = webpack_bundle_tag 'common', dev_server: true
     = webpack_bundle_tag 'devise', dev_server: true
