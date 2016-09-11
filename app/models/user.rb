@@ -36,4 +36,5 @@ class User
   # field :locked_at,       type: Time
 
   has_many :tags
+  has_many :events
 end

@@ -17,7 +17,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userLoading: state.user.loading
+    userLoading: state.users.currentUser.loading
   }
 }
 

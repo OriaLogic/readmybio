@@ -3,7 +3,7 @@ import TopNav from './layout/TopNav.react';
 import Loader from './loaders/Loader.react';
 
 class AppComponent extends Component {
-  static PropTypes = {
+  static propTypes = {
     userLoading: PropTypes.bool.isRequired
   }
 
@@ -17,11 +17,14 @@ class AppComponent extends Component {
 
         <Loader loading={userLoading} />
 
-        <div
-          className='container-fluid'
-          id='app-main-container'>
-          { this.props.children }
-        </div>
+        {
+          !userLoading &&
+          <div
+            className='container-fluid'
+            id='app-main-container'>
+            { this.props.children }
+          </div>
+        }
       </div>
     );
   }

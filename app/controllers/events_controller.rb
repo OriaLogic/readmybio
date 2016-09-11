@@ -1,7 +1,9 @@
 class EventsController < ApplicationController
   def index
-    byebug
-    # render_react
+    render json: {
+      events: current_user.events,
+      user: current_user
+    }
   end
 
   def new

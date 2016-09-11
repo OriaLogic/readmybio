@@ -4,7 +4,7 @@ import ProfileDropdown from '../../components/layout/ProfileDropdown.react';
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    currentUser: state.users.currentUser
   };
 }
 

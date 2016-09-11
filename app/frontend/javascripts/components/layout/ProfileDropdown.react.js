@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import NavbarDropdown from '../dropdowns/NavbarDropdown.react';
 
-const ProfileDropdown = ({ user, logout }) => (
+const ProfileDropdown = ({ currentUser, logout }) => (
   <ul
     className="nav navbar-nav navbar-right">
     <NavbarDropdown
@@ -11,7 +11,7 @@ const ProfileDropdown = ({ user, logout }) => (
             className='glyphicon glyphicon-user'
           />
           {' '}
-          {user && user.email ? user.email : 'Profile'}
+          {currentUser && currentUser.email ? currentUser.email : 'Profile'}
           {' '}
           <span className="caret" />
         </span>
@@ -30,5 +30,10 @@ const ProfileDropdown = ({ user, logout }) => (
     </NavbarDropdown>
   </ul>
 );
+
+ProfileDropdown.propTypes = {
+  currentUser: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
+}
 
 export default ProfileDropdown;

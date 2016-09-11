@@ -7,16 +7,25 @@ import { Provider } from 'react-redux';
 import App from './containers/App.react';
 import Profile from './components/Profile.react';
 import EventCreator from './components/events/Creator.react';
-import EventsIndex from './components/events/Index.react';
+import EventsIndex from './containers/events/Index.react';
+import Event from './containers/events/Event.react';
 
 render(
   <Provider store={store}>
     <Router history={syncedHistory}>
-      <Route component={App} path='/'>
+      <Route path='/' component={App}>
         <IndexRoute component={EventsIndex} />
-        <Route component={EventCreator} path="events/new" />
-        <Route component={EventsIndex} path="events" />
-        <Route component={Profile} path="profile" />
+        <Route path="events/new" component={EventCreator} />
+        <Route path="events" component={EventsIndex} />
+        <Route path=":eventId" component={Event} />
+
+        <Route path="users/:userId/events">
+          <IndexRoute component={EventsIndex} />
+          <Route path=":eventId" component={Event} />
+        </Route>
+
+        <Route path="profile" component={Profile} />
+
         <Redirect from='*' to='/' />
       </Route>
     </Router>
