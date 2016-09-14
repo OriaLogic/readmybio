@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import EventIndexComponent from '../../components/events/Index.react';
 import { fetchEventsForUser } from '../../actions/events';
-import UserPresentation from '../../components/events/UserPresentation.react';
 
 class EventIndexContainer extends Component {
   // componentDidMount () {

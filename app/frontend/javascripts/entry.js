@@ -12,6 +12,7 @@ import CategoriesIndex from './containers/categories/Index.react';
 import Event from './containers/events/Event.react';
 import EventEdit from './containers/events/Edit.react';
 import FriendsIndex from './containers/friends/Index.react';
+import UserBio from './containers/events/UserBio.react';
 
 import { fetchUser, fetchUserCategories } from './actions/users';
 
@@ -37,7 +38,7 @@ render(
       <Route path='/' component={App} onEnter={fetchCurrentUser}>
         <IndexRedirect to='users/me/categories' />
 
-        <Route path='users/:userId' onEnter={fetchUserCategoriesAndTransition}>
+        <Route path='users/:userId' onEnter={fetchUserCategoriesAndTransition} component={UserBio}>
           <Route path='categories' component={CategoriesIndex}>
             <Route path=':categorieId'>
               <Route path="events" component={EventsIndex} />
