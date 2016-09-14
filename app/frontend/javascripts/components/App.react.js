@@ -3,34 +3,27 @@ import TopNav from './layout/TopNav.react';
 import SideBar from './layout/SideBar.react';
 import MainPanel from './layout/MainPanel.react';
 
-class AppComponent extends Component {
-  static propTypes = {
-    userLoading: PropTypes.bool.isRequired
-  }
+const AppComponent = ({ children }) => {
+  return (
+    <div
+      style={{ height: '100%' }}>
+      <TopNav />
 
-  render () {
-    return (
       <div
-        style={{ height: '100%' }}>
-        <TopNav />
-
+        className='container-fluid'
+        id='app-main-container'>
         <div
-          className='container-fluid'
-          id='app-main-container'>
-          <div
-            className='row'
-            style={{ height: '100%' }}>
-            <SideBar />
-            <MainPanel
-              style={{ position: 'relative' }}
-              {...this.props}>
-              {this.props.children}
-            </MainPanel>
-          </div>
+          className='row'
+          style={{ height: '100%' }}>
+          <SideBar />
+          <MainPanel
+            style={{ position: 'relative' }}>
+            {children}
+          </MainPanel>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default AppComponent;

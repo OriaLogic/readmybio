@@ -1,6 +1,3 @@
 class TagsController < ApplicationController
-  def autocomplete
-  end
-
-  def create; end
+  def autocomplete; end
 end

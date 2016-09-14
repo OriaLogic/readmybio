@@ -1,36 +1,37 @@
-import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_EVENTS_SUCCESS } from '../constants/actionTypes';
+import {
+  FETCH_USER_SUCCESS,
+  FETCH_CATEGORIES_SUCCESS
+} from '../constants/actionTypes';
 
 const initialState = {
-  currentUser: {
-    loading: true
-  },
-
-  displayedUser: {}
+  list: {},
+  currentUserId: null,
+  displayedUserId: null
 };
 
-const user = (state = initialState, action) => {
+const users = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_USER:
-      return {
-        ...state,
-        currentUser: { loading: true }
-      };
     case FETCH_USER_SUCCESS:
       return {
         ...state,
-        currentUser: {
-          ...action.user,
-          loading: false
-        }
+        list: {
+          ...state.list,
+          [action.user.id]: action.user
+        },
+        currentUserId: action.user.id
       };
-    case FETCH_EVENTS_SUCCESS:
+    case FETCH_CATEGORIES_SUCCESS:
       return {
         ...state,
-        displayedUser: action.user
+        list: {
+          ...state.list,
+          [action.user.id]: action.user
+        },
+        displayedUserId: action.user.id
       };
     default:
       return state;
   }
 }
 
-export default user;
+export default users;

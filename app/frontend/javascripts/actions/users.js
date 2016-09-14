@@ -32,7 +32,8 @@ export const fetchUserCategories = (userId) => (dispatch, getState) => {
     .then(({ user, categories }) => {
       dispatch({
         type: FETCH_CATEGORIES_SUCCESS,
-        user
+        user,
+        categories
       });
     });
 }

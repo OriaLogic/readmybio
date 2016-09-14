@@ -4,7 +4,7 @@ import { Router, Route, browserHistory, IndexRoute, Redirect, IndexRedirect } fr
 import store, { syncedHistory } from './store';
 import { Provider } from 'react-redux';
 
-import App from './containers/App.react';
+import App from './components/App.react';
 import Profile from './containers/profile/Edit.react';
 import EventCreator from './containers/events/Creator.react';
 import EventsIndex from './containers/events/Index.react';
@@ -15,21 +15,21 @@ import FriendsIndex from './containers/friends/Index.react';
 
 import { fetchUser, fetchUserCategories } from './actions/users';
 
+const fetchCurrentUser = (n, r, callback) => store.dispatch(fetchUser()).then(() => callback());
+
 const fetchUserCategoriesAndTransition = (nextState, replace, callback) => {
   let { userId } = nextState.params;
-  const currentUserId = store.getState().users.currentUser.id;
+  const currentUserId = store.getState().users.currentUserId;
   userId = userId === 'me' ? currentUserId : userId;
 
   store.dispatch(fetchUserCategories(userId))
-    .then(() => callback())
-    .catch(error => {
-      replace(`/friends`);
-      // replace(`/users/${currentUserId}/categories`);
-      callback();
-    });
+  .then(() => callback())
+  .catch(error => {
+    replace(`/friends`);
+    // replace(`/users/${currentUserId}/categories`);
+    callback();
+  });
 }
-
-const fetchCurrentUser = (n, r, callback) => store.dispatch(fetchUser()).then(() => callback());
 
 render(
   <Provider store={store}>

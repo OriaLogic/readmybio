@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/users';
 import ProfileDropdown from '../../components/layout/ProfileDropdown.react';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ users }) => {
+  const { list, currentUserId } = users;
   return {
-    currentUser: state.users.currentUser
+    currentUser: list[currentUserId]
   };
 }
 
