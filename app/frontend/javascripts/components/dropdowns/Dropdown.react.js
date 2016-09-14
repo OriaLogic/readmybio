@@ -89,7 +89,8 @@ class Dropdown extends React.Component {
     }
   }
 
-  toggleDropdown = () => {
+  toggleDropdown = (e) => {
+    e.preventDefault();
     this.setState({ open: !this.state.open });
   }
 }

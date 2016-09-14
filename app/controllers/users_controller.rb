@@ -7,9 +7,10 @@ class UsersController < ApplicationController
 
   def categories
     categories = @user.tags
-
+    
     render json: normalize_for_json({
       user: @user,
+      events_count: @user.events.count,
       categories: categories
     })
   end

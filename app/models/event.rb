@@ -16,4 +16,6 @@ class Event
 
   index({ user_id: 1, event_date: -1 }, { background: true })
   index({ user_id: 1, title: 1, event_date: -1 }, { background: true })
+
+  scope :with_tag, ->(tag_id) { where(tag_ids: tag_id) }
 end

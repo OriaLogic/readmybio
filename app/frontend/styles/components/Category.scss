@@ -1,0 +1,18 @@
+.category {
+  background-color: $brand-info;
+  border-radius: 4px;
+  padding: 10px;
+  color: white;
+  min-height: 100px;
+
+  h3 {
+    margin-top: 0;
+    text-align: center;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-bottom: 0px;
+  }
+}

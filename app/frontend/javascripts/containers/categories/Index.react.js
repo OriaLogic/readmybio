@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import CategoriesIndexComponent from '../../components/categories/Index.react';
 
 const mapStateToProps = ({ users, categories }) => {
+  const { list, displayedUserId, currentUserId } = users;
   return {
-    categories: categories[users.displayedUserId]
+    categories: categories[displayedUserId],
+    totalEventsCount: list[displayedUserId].eventsCount,
+    userId: (displayedUserId === currentUserId ? 'me' : displayedUserId)
   };
 }
 

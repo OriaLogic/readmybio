@@ -25,7 +25,10 @@ const users = (state = initialState, action) => {
         ...state,
         list: {
           ...state.list,
-          [action.user.id]: action.user
+          [action.user.id]: {
+            ...action.user,
+            eventsCount: action.eventsCount
+          }
         },
         displayedUserId: action.user.id
       };

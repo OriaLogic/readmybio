@@ -22,18 +22,19 @@ export const logoutUser = () => dispatch  => {
 }
 
 export const fetchUserCategories = (userId) => (dispatch, getState) => {
-  const currentState = getState();
+  const { categories } = getState();
 
-  if (currentState.users[userId]) {
+  if (categories[userId]) {
     return Promise.resolve();
   }
 
   return defaultFetch(UserCategoriesJSONPath(userId))
-    .then(({ user, categories }) => {
+    .then(({ user, categories, events_count }) => {
       dispatch({
         type: FETCH_CATEGORIES_SUCCESS,
         user,
-        categories
+        categories,
+        eventsCount: events_count
       });
     });
 }
