@@ -19,7 +19,7 @@ class EventIndexContainer extends Component {
 
   render () {
     const { displayedUser, events, currentUser, loadingEvent } = this.props;
-    const isCurrentUserEvents = (displayedUser.id !== currentUser.id);
+    const isCurrentUserEvents = (displayedUser.id === currentUser.id);
 
     if (loadingEvent) {
       return 'loading...';
@@ -28,7 +28,7 @@ class EventIndexContainer extends Component {
     return (
       <div>
         {
-          (isCurrentUserEvents) &&
+          (!isCurrentUserEvents) &&
           <UserPresentation user={displayedUser} />
         }
 

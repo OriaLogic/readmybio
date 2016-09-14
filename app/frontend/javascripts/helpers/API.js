@@ -30,13 +30,17 @@ const logIfDev = (url, response) => {
   return response;
 }
 
-export const authenticatedFetch = (url, options) => fetch(url, {
-  ...options,
-  credentials: 'same-origin',
-  headers: {
-    'X-CSRF-Token': csrfToken()
-  }
-});
+export const authenticatedFetch = (url, options) => {
+  let headers = options.headers || {};
+  return fetch(url, {
+    ...options,
+    credentials: 'same-origin',
+    headers: {
+      'X-CSRF-Token': csrfToken(),
+      ...headers
+    }
+  });
+}
 
 export const defaultFetch = (url, options = {}) => {
   return authenticatedFetch(url, options)
@@ -44,3 +48,16 @@ export const defaultFetch = (url, options = {}) => {
     .then((response) => parseJSON(response, options))
     .then((response) => logIfDev(url, response));
 };
+
+export const defaultPost = (url, options = {}) => {
+  options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    ...options
+  };
+
+  return defaultFetch(url, options);
+}

@@ -10,7 +10,7 @@ class Event
   field :extra_description, type: String
   field :event_date, type: Date
 
-  validates :title, :date, presence: true
+  validates :title, presence: true
   validates :title, length: { minimum: 3, maximum: 200 }
   validates :description, length: { maximum: 1000 }
 

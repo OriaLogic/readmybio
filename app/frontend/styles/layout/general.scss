@@ -2,8 +2,13 @@ html, body {
   height: 100%;
 }
 
+#root, #app-main-container, #sidebar {
+  height: 100%;
+}
+
 #app-main-container {
   padding-top: 70px;
+  padding-bottom: 20px;
 }
 
 .general-top-alert {
@@ -18,4 +23,9 @@ html, body {
   text-align: center;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
+}
+
+#sidebar {
+  border-right: 1px solid $gray-light;
+  padding-right: 15px;
 }

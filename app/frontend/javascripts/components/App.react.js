@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import TopNav from './layout/TopNav.react';
-import Loader from './loaders/Loader.react';
+import SideBar from './layout/SideBar.react';
+import MainPanel from './layout/MainPanel.react';
 
 class AppComponent extends Component {
   static propTypes = {
@@ -8,23 +9,25 @@ class AppComponent extends Component {
   }
 
   render () {
-    const { userLoading } = this.props;
-
     return (
       <div
-        style={{ position: 'relative' }}>
+        style={{ height: '100%' }}>
         <TopNav />
 
-        <Loader loading={userLoading} />
-
-        {
-          !userLoading &&
+        <div
+          className='container-fluid'
+          id='app-main-container'>
           <div
-            className='container-fluid'
-            id='app-main-container'>
-            { this.props.children }
+            className='row'
+            style={{ height: '100%' }}>
+            <SideBar />
+            <MainPanel
+              style={{ position: 'relative' }}
+              {...this.props}>
+              {this.props.children}
+            </MainPanel>
           </div>
-        }
+        </div>
       </div>
     );
   }

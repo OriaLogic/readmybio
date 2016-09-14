@@ -10,7 +10,6 @@ const initialState = {};
 const event = (state = initialState, action) {
   switch (action.type) {
     case CREATE_EVENT:
-
     case CREATE_EVENT_SUCCESS:
     default:
       return state;

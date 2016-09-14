@@ -1,14 +1,18 @@
 class EventsController < ApplicationController
   def index
-    render json: {
+    render json: normalize_for_json({
       events: current_user.events,
       user: current_user
-    }
+    })
   end
 
-  def new
-    render_react
+  def create
+    event = current_user.events.create(event_params)
+    render json: normalize_for_json(event)
   end
 
-  def create; end
+  private
+  def event_params
+    params.require(:event).permit(:title, :description)
+  end
 end

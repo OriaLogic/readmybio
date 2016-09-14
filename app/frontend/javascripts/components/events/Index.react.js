@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { NewEventPath } from '../../helpers/Routes';
+import EventRow from './EventRow.react';
 
 class EventsIndexComponent extends Component {
   static propTypes = {
@@ -37,7 +38,11 @@ class EventsIndexComponent extends Component {
           events.length > 0 &&
           events.map(event => {
             return (
-              <div>{event.title}</div>
+              <EventRow
+                event={event}
+                key={event.id}
+                canEdit={canEdit}
+              />
             );
           })
         }

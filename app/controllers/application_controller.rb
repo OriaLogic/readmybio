@@ -27,10 +27,10 @@ class ApplicationController < ActionController::Base
     elsif obj.is_a? Mongoid::Document
       return normalize_for_json obj.attributes
     elsif obj.is_a? Array
-      return obj.map { normalize_for_json obj }
+      return obj.map { |el| normalize_for_json el }
     elsif obj.is_a? Hash
       new_obj = {}
-      new_obj['id'] = obj['_id'].to_s
+      new_obj['id'] = obj['_id'].to_s if obj['_id']
       obj.each do |k, v|
         new_obj[k] = normalize_for_json v
       end

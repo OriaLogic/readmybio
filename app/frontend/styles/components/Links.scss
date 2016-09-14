@@ -1,0 +1,6 @@
+.nav-pills > li > a.active {
+  &, &:hover, &:focus {
+    color: $white;
+    background-color: $brand-primary;
+  }
+}
