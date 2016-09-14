@@ -8,9 +8,10 @@ Rails.application.routes.draw do
 
     resources :users, only: [] do
       get 'current', on: :collection
+      get 'categories', on: :member
     end
 
-    resources :tags, only: [:create] do
+    resources :tags do
       get 'autocomplete', on: :collection
     end
   end

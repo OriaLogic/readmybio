@@ -5,17 +5,17 @@ import { fetchEventsForUser } from '../../actions/events';
 import UserPresentation from '../../components/events/UserPresentation.react';
 
 class EventIndexContainer extends Component {
-  componentDidMount () {
-    const userId = this.props.params.userId || this.props.currentUser.id;
-    this.props.dispatch(fetchEventsForUser(userId));
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.params.userId !== this.props.userId) {
-      const userId = nextProps.params.userId || this.props.currentUser.id;
-      this.props.dispatch(fetchEventsForUser(userId));
-    }
-  }
+  // componentDidMount () {
+  //   const userId = this.props.params.userId || this.props.currentUser.id;
+  //   this.props.dispatch(fetchEventsForUser(userId));
+  // }
+  //
+  // componentWillReceiveProps (nextProps) {
+  //   if (nextProps.params.userId !== this.props.userId) {
+  //     const userId = nextProps.params.userId || this.props.currentUser.id;
+  //     this.props.dispatch(fetchEventsForUser(userId));
+  //   }
+  // }
 
   render () {
     const { displayedUser, events, currentUser, loadingEvent } = this.props;

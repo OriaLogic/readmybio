@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { logoutUser } from '../../actions/user';
+import { logoutUser } from '../../actions/users';
 import ProfileDropdown from '../../components/layout/ProfileDropdown.react';
 
 const mapStateToProps = (state) => {

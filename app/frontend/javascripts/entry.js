@@ -13,13 +13,31 @@ import Event from './containers/events/Event.react';
 import EventEdit from './containers/events/Edit.react';
 import FriendsIndex from './containers/friends/Index.react';
 
+import { fetchUser, fetchUserCategories } from './actions/users';
+
+const fetchUserCategoriesAndTransition = (nextState, replace, callback) => {
+  let { userId } = nextState.params;
+  const currentUserId = store.getState().users.currentUser.id;
+  userId = userId === 'me' ? currentUserId : userId;
+
+  store.dispatch(fetchUserCategories(userId))
+    .then(() => callback())
+    .catch(error => {
+      replace(`/friends`);
+      // replace(`/users/${currentUserId}/categories`);
+      callback();
+    });
+}
+
+const fetchCurrentUser = (n, r, callback) => store.dispatch(fetchUser()).then(() => callback());
+
 render(
   <Provider store={store}>
     <Router history={syncedHistory}>
-      <Route path='/' component={App}>
+      <Route path='/' component={App} onEnter={fetchCurrentUser}>
         <IndexRedirect to='users/me/categories' />
 
-        <Route path='users/:userId'>
+        <Route path='users/:userId' onEnter={fetchUserCategoriesAndTransition}>
           <Route path='categories' component={CategoriesIndex}>
             <Route path=':categorieId'>
               <Route path="events" component={EventsIndex} />

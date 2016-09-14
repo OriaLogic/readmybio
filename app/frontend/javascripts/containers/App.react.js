@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import AppComponent from '../components/App.react';
-import { fetchUser } from '../actions/user';
+import { fetchUser } from '../actions/users';
 
 class App extends Component {
   componentDidMount = () => {
