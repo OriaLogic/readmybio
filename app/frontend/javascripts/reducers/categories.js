@@ -12,7 +12,6 @@ const categories = (state = initialState, action) => {
       const categories = {};
 
       forEach(action.categories, cat => {
-        cat.eventsCount = cat.events_count;
         cat.eventIds = cat.event_ids;
         categories[cat.id] = cat;
       });

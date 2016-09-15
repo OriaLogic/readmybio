@@ -1,9 +1,6 @@
 class EventsController < ApplicationController
   def index
-    render json: normalize_for_json({
-      events: current_user.events,
-      user: current_user
-    })
+    render json: normalize_for_json(current_user.events)
   end
 
   def create

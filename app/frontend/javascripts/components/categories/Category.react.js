@@ -1,14 +1,17 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { UserCategorieEventsPath } from '../../helpers/Routes';
+export const ALL_CATEGORY_ID = 'all';
 
 const Category = ({ userId, name, id, eventsCount }) => {
   return (
     <div
       className='col-md-3'>
       <Link
-        to={UserCategorieEventsPath(userId, id)}>
-        <div className='category'>
+        to={UserCategorieEventsPath(userId, id)}
+        className='category'
+        id={id === ALL_CATEGORY_ID ? ALL_CATEGORY_ID : null}>
+        <div className='category-container'>
           <h3>{name}</h3>
           <p>Events: {eventsCount}</p>
         </div>

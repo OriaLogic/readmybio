@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { UserCategoriesPath, FriendsPath } from '../../helpers/Routes';
+import { UserPath, FriendsPath } from '../../helpers/Routes';
 import NavLink from '../links/NavLink.react';
 
 export default () => {
@@ -10,7 +10,7 @@ export default () => {
       <ul
         className='nav nav-pills nav-stacked'
         id='sidebar'>
-        <li><NavLink to={UserCategoriesPath()}>My bio</NavLink></li>
+        <li><NavLink to={UserPath()}>My bio</NavLink></li>
         <li><NavLink to={FriendsPath()}>Friends</NavLink></li>
       </ul>
     </div>

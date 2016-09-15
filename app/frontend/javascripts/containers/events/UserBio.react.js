@@ -2,10 +2,12 @@ import { connect } from 'react-redux';
 import UserBioComponent from '../../components/events/UserBio.react';
 
 const mapStateToProps = ({ users, events }) => {
+  const { displayedUserId, currentUserId } = users;
   const displayedUser = users.list[users.displayedUserId];
   return {
     displayedUser,
-    nbEvents: displayedUser.eventsCount
+    nbEvents: displayedUser.eventsCount,
+    isCurrentUser: (displayedUserId === currentUserId)
   };
 };
 

@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import PresentationalUserImage from '../users/PresentationalImage.react';
+import { NewEventPath } from '../../helpers/Routes';
+import { Link } from 'react-router';
 
-const UserBioComponent = ({ displayedUser, nbEvents, children }) => {
+const UserBioComponent = ({ displayedUser, nbEvents, isCurrentUser, children }) => {
   return (
     <div className='user-bio-section'>
       <div
@@ -23,8 +25,18 @@ const UserBioComponent = ({ displayedUser, nbEvents, children }) => {
             <br/>
             <small>Events: {nbEvents}</small>
           </h3>
+
         </div>
 
+        {
+          isCurrentUser &&
+          <div className='pull-right'>
+            <Link
+              to={NewEventPath()}>
+              Create event
+            </Link>
+          </div>
+        }
       </div>
 
       <div
@@ -37,7 +49,8 @@ const UserBioComponent = ({ displayedUser, nbEvents, children }) => {
 
 UserBioComponent.propTypes = {
   displayedUser: PropTypes.object.isRequired,
-  nbEvents: PropTypes.number.isRequired
+  nbEvents: PropTypes.number.isRequired,
+  isCurrentUser: PropTypes.bool.isRequired
 };
 
 export default UserBioComponent;

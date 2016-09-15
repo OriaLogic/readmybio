@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-import Category from './Category.react';
+import Category, { ALL_CATEGORY_ID } from './Category.react';
 import { forEach, keys } from 'lodash';
-
-
 
 const Index = ({ userId, categories, totalEventsCount }) => {
   const cats = keys(categories).map(categoryId => {
@@ -12,7 +10,7 @@ const Index = ({ userId, categories, totalEventsCount }) => {
       <Category
         name={cat.name}
         id={categoryId}
-        eventsCount={cat.eventsCount}
+        eventsCount={cat.eventIds.length}
         key={categoryId}
         userId={userId}
       />
@@ -21,10 +19,10 @@ const Index = ({ userId, categories, totalEventsCount }) => {
 
   cats.unshift(
     <Category
-      name='all'
+      name={ALL_CATEGORY_ID}
       eventsCount={totalEventsCount}
-      id='all'
-      key='all'
+      id={ALL_CATEGORY_ID}
+      key={ALL_CATEGORY_ID}
       userId={userId}
     />
   );

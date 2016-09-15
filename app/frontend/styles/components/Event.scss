@@ -1,0 +1,31 @@
+.event-loading-placeholder {
+  text-align: center;
+  border-radius: 6px;
+  background-color: $gray-lighter;
+  padding: 20px;
+}
+
+.events-list {
+  .event-row {
+    margin-bottom: 15px;
+    &:last-child { margin-bottom: 0px; }
+    background: none;
+    border: 2px solid lighten(black, 30%);
+    position: relative;
+    padding: 10px;
+
+    &:hover {
+      border: 2px solid black;
+    }
+
+    .event-row-container {
+      width: calc(100% - 100px);
+    }
+
+    .actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  }
+}

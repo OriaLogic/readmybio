@@ -2,53 +2,43 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { NewEventPath } from '../../helpers/Routes';
 import EventRow from './EventRow.react';
+import EventLoadingPlaceholder from './EventLoadingPlaceholder.react';
+import NoEventPlaceholder from './NoEventPlaceholder.react';
+import { keys } from 'lodash';
 
-class EventsIndexComponent extends Component {
-  static propTypes = {
-    canEdit: PropTypes.bool.isRequired,
-    events: PropTypes.array.isRequired
-  }
+const EventsIndexComponent = ({ canEdit, events, loading, params }) => {
+  if (loading) return <EventLoadingPlaceholder />
 
-  render () {
-    const { events, canEdit } = this.props;
+  if (keys(events).length === 0) return <NoEventPlaceholder />
 
-    return (
-      <div
-        style={{ position: 'relative' }}>
-        <h1>
-          EventsIndex alright?
-        </h1>
+  // If not loading and eventsList is not empty
+  return (
+    <div
+      style={{ position: 'relative' }}
+      className='events-list'>
 
-        {
-          canEdit &&
-          <Link
-            className='btn btn-default'
-            style={{ position: 'absolute', right: 0, top: 3 }}
-            to={NewEventPath()}>
-            New Event
-          </Link>
-        }
+      {
+        keys(events).map(eventId => {
+          const e = events[eventId];
 
-        {
-          events.length === 0 &&
-          <h3 className='text-muted'>No event yet</h3>
-        }
+          return (
+            <EventRow
+              event={e}
+              key={e.id}
+              canEdit={canEdit}
+              params={params}
+            />
+          );
+        })
+      }
+    </div>
+  );
+}
 
-        {
-          events.length > 0 &&
-          events.map(event => {
-            return (
-              <EventRow
-                event={event}
-                key={event.id}
-                canEdit={canEdit}
-              />
-            );
-          })
-        }
-      </div>
-    );
-  }
+EventsIndexComponent.propTypes = {
+  canEdit: PropTypes.bool.isRequired,
+  events: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired
 }
 
 export default EventsIndexComponent;

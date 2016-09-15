@@ -1,55 +1,38 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import EventIndexComponent from '../../components/events/Index.react';
-import { fetchEventsForUser } from '../../actions/events';
+import { fetchEventsForUserAndCategory } from '../../actions/events';
 
 class EventIndexContainer extends Component {
-  // componentDidMount () {
-  //   const userId = this.props.params.userId || this.props.currentUser.id;
-  //   this.props.dispatch(fetchEventsForUser(userId));
-  // }
-  //
-  // componentWillReceiveProps (nextProps) {
-  //   if (nextProps.params.userId !== this.props.userId) {
-  //     const userId = nextProps.params.userId || this.props.currentUser.id;
-  //     this.props.dispatch(fetchEventsForUser(userId));
-  //   }
-  // }
+  componentDidMount () {
+    const { userId, categoryId } = this.props.params;
+    this.props.dispatch(fetchEventsForUserAndCategory(userId, categoryId));
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { userId, categoryId } = this.props.params;
+    const { userId: newUserId, categoryId: newCategoryId } = nextProps.params;
+
+    console.log(newUserId, userId, newCategoryId, categoryId)
+    if (newUserId !== userId || newCategoryId !== categoryId) {
+      // this.props.dispatch(fetchEventsForUserAndCategory(newUserId, newCategoryId));
+    }
+  }
 
   render () {
-    const { displayedUser, events, currentUser, loadingEvent } = this.props;
-    const isCurrentUserEvents = (displayedUser.id === currentUser.id);
-
-    if (loadingEvent) {
-      return 'loading...';
-    }
-
-    return (
-      <div>
-        {
-          (!isCurrentUserEvents) &&
-          <UserPresentation user={displayedUser} />
-        }
-
-        <EventIndexComponent
-          events={events}
-          canEdit={isCurrentUserEvents}
-        />
-      </div>
-    );
+    return <EventIndexComponent {...this.props} />
   }
 }
 
-const mapStateToProps = (state) => {
-  const { events, loadingEvent } = state.events;
-  const { displayedUser, currentUser } = state.users;
+const mapStateToProps = (state, ownProps) => {
+  const canEdit = state.currentUserId === state.displayedUserId;
+  const { loading, list: eventsList } = state.events;
 
   return {
-    displayedUser,
-    currentUser,
-    events,
-    loadingEvent
-  };
+    events: eventsList,
+    loading: loading,
+    canEdit
+  }
 }
 
 export default connect(
