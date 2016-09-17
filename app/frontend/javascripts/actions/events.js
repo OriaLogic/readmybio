@@ -47,10 +47,14 @@ export const createEvent = (e) => dispatch => {
 
   return defaultPost(CreateEventJSONPath(), {
     body: JSON.stringify({ event: e })
-  }).then(e => dispatch({
-      type: CREATE_EVENT_SUCCESS,
-      event: e
-    }));
+  }).then(e => {
+      dispatch({
+        type: CREATE_EVENT_SUCCESS,
+        event: e
+      });
+
+      return e;
+  });
 }
 
 export const updateEvent = (userId, eventId, eventParams) => dispatch => {

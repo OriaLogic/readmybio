@@ -1,18 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { createEvent } from '../../actions/events';
 import { connect } from 'react-redux';
+import { syncedHistory } from '../../store';
+import { UserEventPath } from '../../helpers/Routes';
 
-// field :title, type: String
-// field :description, type: String
-// field :extra_description, type: String
-// field :event_date, type: Date
-
-const EventCreator = ({ dispatch }) => {
+const EventCreator = ({ create, afterCreate }) => {
   let titleInput, descriptionTextArea, form;
 
   return (
-    <div className='col-md-offset-3 col-md-6'>
-      <h2>Create an event!</h2>
+    <div>
+      <h3>Create an event</h3>
       <form
         ref={node => {
           form = node;
@@ -20,11 +17,13 @@ const EventCreator = ({ dispatch }) => {
         onSubmit={ e => {
           e.preventDefault();
           if (!titleInput.value.trim()) { return; }
-          dispatch(createEvent({
+          create({
             title: titleInput.value,
             description: descriptionTextArea.value
-          }));
-          form.reset();
+          }).then((e) => {
+            form.reset();
+            afterCreate(e);
+          })
         }}>
         <div className="form-group">
           <label>
@@ -57,4 +56,11 @@ const EventCreator = ({ dispatch }) => {
   );
 }
 
-export default connect()(EventCreator);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    create: (eventParams) => dispatch(createEvent(eventParams)),
+    afterCreate: (e) => syncedHistory.push(UserEventPath('me', e.id))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(EventCreator);

@@ -9,9 +9,9 @@ const EventRow = ({ event: ev, canEdit, params }) => {
     <div className='event-row'>
       <Link to={UserEventPath(userId, ev.id, categoryId)}>
         <div className='event-row-container'>
-          <h2 style={{ margin: 0, marginBottom: 15 }}>
+          <h3 style={{ margin: 0, marginBottom: 15 }}>
             {ev.title}
-          </h2>
+          </h3>
           <p style={{ margin: 0 }}>{ev.description}</p>
         </div>
       </Link>

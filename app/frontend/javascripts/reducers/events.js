@@ -17,8 +17,14 @@ const initialState = {
 
 const events = (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_EVENT:
     case CREATE_EVENT_SUCCESS:
+      return {
+        ...state,
+        list: {
+          ...state.list,
+          [action.event.id]: action.event
+        }
+      }
     case DELETE_EVENT:
       return state;
     case UPDATE_EVENT_SUCCESS:

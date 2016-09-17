@@ -1,6 +1,7 @@
 import {
   FETCH_USER_SUCCESS,
-  FETCH_CATEGORIES_SUCCESS
+  FETCH_CATEGORIES_SUCCESS,
+  CREATE_EVENT_SUCCESS
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -32,6 +33,17 @@ const users = (state = initialState, action) => {
         },
         displayedUserId: action.user.id
       };
+    case CREATE_EVENT_SUCCESS:
+      return {
+        ...state,
+        list: {
+          ...state.list,
+          [state.currentUserId]: {
+            ...state.list[state.currentUserId],
+            eventsCount: (state.list[state.currentUserId].eventsCount + 1)
+          }
+        }
+      }
     default:
       return state;
   }
