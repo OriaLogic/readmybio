@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import UserBioComponent from '../../components/events/UserBio.react';
+import UserBioComponent from '../../components/users/UserBio.react';
 
 const mapStateToProps = ({ users, events }) => {
   const { displayedUserId, currentUserId } = users;

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import PresentationalUserImage from '../users/PresentationalImage.react';
-import { NewEventPath } from '../../helpers/Routes';
+import PresentationalUserImage from './PresentationalImage.react';
+import { NewUserEventPath } from '../../helpers/Routes';
 import { Link } from 'react-router';
 
 const UserBioComponent = ({ displayedUser, nbEvents, isCurrentUser, children }) => {
@@ -30,9 +30,9 @@ const UserBioComponent = ({ displayedUser, nbEvents, isCurrentUser, children }) 
 
         {
           isCurrentUser &&
-          <div className='pull-right'>
+          <div className='pull-right additional-actions'>
             <Link
-              to={NewEventPath()}>
+              to={NewUserEventPath()}>
               Create event
             </Link>
           </div>

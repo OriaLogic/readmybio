@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { NewEventPath } from '../../helpers/Routes';
+import { NewUserEventPath } from '../../helpers/Routes';
 
 export default ({ canEdit }) => {
   return (
@@ -14,7 +14,7 @@ export default ({ canEdit }) => {
         canEdit &&
         <Link
           className='btn btn-default btn-lg'
-          to={NewEventPath()}>
+          to={NewUserEventPath()}>
           Create an event
         </Link>
       }

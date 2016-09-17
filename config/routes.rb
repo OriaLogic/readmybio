@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, path: 'auth'
 
   scope :format => true, :constraints => { :format => 'json' }, :defaults => { :format => 'json' } do
-    resources :events, only: [:index, :create]
+    resources :events, only: [:index, :create, :show, :update]
 
     resources :users, only: [] do
       get 'current', on: :collection

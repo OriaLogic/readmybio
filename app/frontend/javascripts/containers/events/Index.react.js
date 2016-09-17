@@ -13,9 +13,8 @@ class EventIndexContainer extends Component {
     const { userId, categoryId } = this.props.params;
     const { userId: newUserId, categoryId: newCategoryId } = nextProps.params;
 
-    console.log(newUserId, userId, newCategoryId, categoryId)
     if (newUserId !== userId || newCategoryId !== categoryId) {
-      // this.props.dispatch(fetchEventsForUserAndCategory(newUserId, newCategoryId));
+      this.props.dispatch(fetchEventsForUserAndCategory(newUserId, newCategoryId));
     }
   }
 
@@ -24,14 +23,13 @@ class EventIndexContainer extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const canEdit = state.currentUserId === state.displayedUserId;
-  const { loading, list: eventsList } = state.events;
+const mapStateToProps = ({ events, users }, ownProps) => {
+  const { loading, list: eventsList } = events;
 
   return {
     events: eventsList,
     loading: loading,
-    canEdit
+    canEdit: (users.currentUserId === users.displayedUserId)
   }
 }
 

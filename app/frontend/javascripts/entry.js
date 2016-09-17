@@ -12,10 +12,11 @@ import CategoriesIndex from './containers/categories/Index.react';
 import Event from './containers/events/Event.react';
 import EventEdit from './containers/events/Edit.react';
 import FriendsIndex from './containers/friends/Index.react';
-import UserBio from './containers/events/UserBio.react';
+import UserBio from './containers/users/UserBio.react';
 import CategoryEventsWrapper from './containers/categories/EventsWrapper.react';
 
 import { fetchUser, fetchUserCategories } from './actions/users';
+import { fetchEvent } from './actions/events';
 
 const fetchCurrentUser = (n, r, callback) => store.dispatch(fetchUser()).then(() => callback());
 
@@ -33,6 +34,26 @@ const fetchUserCategoriesAndTransition = (nextState, replace, callback) => {
   });
 }
 
+const fetchEventAndTransition = (nextState, replace, callback) => {
+  let { userId, eventId } = nextState.params;
+
+  store.dispatch(fetchEvent(userId, eventId))
+  .then(() => callback())
+  .catch(error => {
+    replace(`/users/${userId}/categories`);
+    // replace(`/users/${currentUserId}/categories`);
+    callback();
+  });
+}
+
+const ensureDisplayUserIsCurrentUser = (nextState, replace) => {
+  let { userId } = nextState.params;
+
+  if (userId !== 'me') {
+    replace(`/users/${userId}/categories`);
+  }
+};
+
 render(
   <Provider store={store}>
     <Router history={syncedHistory}>
@@ -48,9 +69,12 @@ render(
           </Route>
 
           <Route path="events">
-            <Route path="new" component={EventCreator} />
-            <Route path=":eventId" component={Event} />
-            <Route path=":eventId/edit" component={EventEdit} />
+            <IndexRedirect to='users/me/categories/all/events' />
+            <Route path="new" component={EventCreator} onEnter={ensureDisplayUserIsCurrentUser} />
+            <Route path=":eventId" onEnter={fetchEventAndTransition}>
+              <IndexRoute component={Event} />
+              <Route path="edit" component={EventEdit} onEnter={ensureDisplayUserIsCurrentUser} />
+            </Route>
           </Route>
 
           <IndexRedirect to='users/me/categories' />

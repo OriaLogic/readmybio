@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def categories
     categories = @user.tags
-    
+
     render json: normalize_for_json({
       user: @user,
       events_count: @user.events.count,
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   private
   def set_user
-    return @user = current_user if params[:id].to_sym == :sym
+    return @user = current_user if params[:id].to_sym == :me
     head 404 unless @user = User.find(params[:id])
   end
 end

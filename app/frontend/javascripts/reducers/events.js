@@ -3,10 +3,12 @@ import {
   DELETE_EVENT, DELETE_EVENT_SUCCESS,
   EDIT_EVENT,
   UPDATE_EVENT, UPDATE_EVENT_SUCCESS,
+  FETCH_EVENT, FETCH_EVENT_SUCCESS,
   FETCH_EVENTS, FETCH_EVENTS_SUCCESS
 } from '../constants/actionTypes';
 
 import { forEach } from 'lodash';
+import event from './event';
 
 const initialState = {
   list: {},
@@ -19,6 +21,15 @@ const events = (state = initialState, action) => {
     case CREATE_EVENT_SUCCESS:
     case DELETE_EVENT:
       return state;
+    case UPDATE_EVENT_SUCCESS:
+    case FETCH_EVENT_SUCCESS:
+      return {
+        ...state,
+        list: {
+          ...state.list,
+          [action.eventId]: event(state.list[action.eventId], action)
+        }
+      }
     case FETCH_EVENTS:
       return {
         ...state,

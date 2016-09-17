@@ -46,7 +46,8 @@ $light-brand-info: lighten($brand-info, 5%);
 
 .events-wrapper {
   .header {
-    margin: 20px 0px 10px 0px;
+    margin: 0px;
+    margin-bottom: 10px;
   }
 
   .list-wrapper {

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { NewEventPath } from '../../helpers/Routes';
+import { NewUserEventPath } from '../../helpers/Routes';
 import EventRow from './EventRow.react';
 import EventLoadingPlaceholder from './EventLoadingPlaceholder.react';
 import NoEventPlaceholder from './NoEventPlaceholder.react';

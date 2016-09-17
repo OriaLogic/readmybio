@@ -61,3 +61,12 @@ export const defaultPost = (url, options = {}) => {
 
   return defaultFetch(url, options);
 }
+
+export const defaultPatch = (url, options = {}) => {
+  options = {
+    method: 'PATCH',
+    ...options
+  };
+
+  return defaultPost(url, options);
+}

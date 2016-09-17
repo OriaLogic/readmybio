@@ -17,9 +17,9 @@ const categories = (state = initialState, action) => {
       });
 
       return {
-          ...state,
-          [action.user.id]: categories
-        };
+        ...state,
+        [action.user.id]: categories
+      };
     default:
       return state;
   }
