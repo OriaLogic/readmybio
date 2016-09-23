@@ -5,6 +5,7 @@ import store, { syncedHistory } from './store';
 import { Provider } from 'react-redux';
 
 import App from './components/App.react';
+import Onboarding from './containers/Onboarding.react';
 import Profile from './containers/profile/Edit.react';
 import EventCreator from './containers/events/Creator.react';
 import EventsIndex from './containers/events/Index.react';
@@ -18,7 +19,20 @@ import CategoryEventsWrapper from './containers/categories/EventsWrapper.react';
 import { fetchUser, fetchUserCategories } from './actions/users';
 import { fetchEvent } from './actions/events';
 
-const fetchCurrentUser = (n, r, callback) => store.dispatch(fetchUser()).then(() => callback());
+const fetchCurrentUserIfNeeded = (n, replace, callback) => {
+  if (store.getState().users && store.getState().users.currentUserId) {
+    callback();
+  } else {
+    store.dispatch(fetchUser())
+    .then((user) => {
+      if (!user.is_onboarded) {
+        replace('/onboarding');
+      }
+
+      callback();
+    });
+  }
+}
 
 const fetchUserCategoriesAndTransition = (nextState, replace, callback) => {
   let { userId } = nextState.params;
@@ -57,19 +71,15 @@ const ensureDisplayUserIsCurrentUser = (nextState, replace) => {
 render(
   <Provider store={store}>
     <Router history={syncedHistory}>
-      <Route path='/' component={App} onEnter={fetchCurrentUser}>
+      <Route path='/onboarding' component={Onboarding} onEnter={fetchCurrentUserIfNeeded}/>
+
+      <Route path='/' component={App} onEnter={fetchCurrentUserIfNeeded}>
         <IndexRedirect to='users/me/categories' />
 
         <Route path='users/:userId' onEnter={fetchUserCategoriesAndTransition} component={UserBio}>
-          <Route path='categories'>
-            <IndexRoute component={CategoriesIndex} />
-            <Route path=':categoryId' component={CategoryEventsWrapper}>
-              <Route path="events" component={EventsIndex} />
-            </Route>
-          </Route>
+          <Route path='categories' component={CategoriesIndex} />
 
           <Route path="events">
-            <IndexRedirect to='users/me/categories/all/events' />
             <Route path="new" component={EventCreator} onEnter={ensureDisplayUserIsCurrentUser} />
             <Route path=":eventId" onEnter={fetchEventAndTransition}>
               <IndexRoute component={Event} />
@@ -77,7 +87,7 @@ render(
             </Route>
           </Route>
 
-          <IndexRedirect to='users/me/categories' />
+          <IndexRedirect to='users/me/events' />
         </Route>
 
         <Route path="profile" component={Profile} />

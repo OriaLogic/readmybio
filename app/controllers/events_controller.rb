@@ -8,8 +8,32 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = current_user.events.create(event_params)
-    render json: normalize_for_json(event)
+    e_params = event_params
+
+    tags = []
+    e_params[:tag_ids] ||= []
+
+    e_params[:tag_ids] = e_params[:tag_ids].map do |tag_id|
+      matchingTag = current_user.tags.or({ :id => tag_id }, { :name => tag_id }).first
+
+      if !matchingTag
+        current_user.tags.create(name: tag_id)
+        matchingTag = current_user.tags.find_by(name: tag_id)
+      end
+
+      tags << matchingTag
+      matchingTag.id
+    end
+
+    e_params[:event_date] = Time.now
+
+    if event = current_user.events.create(e_params)
+      tags.each do |tag|
+        tag.event_ids << event.id
+      end
+
+      render json: normalize_for_json(event)
+    end
   end
 
   def show
@@ -23,7 +47,7 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:title, :description)
+    params.require(:event).permit(:title, :quick_description, :full_description, :tag_ids => [])
   end
 
   def authorize_user

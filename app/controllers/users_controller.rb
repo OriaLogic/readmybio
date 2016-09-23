@@ -15,6 +15,11 @@ class UsersController < ApplicationController
     })
   end
 
+  def validate_onboarding
+    current_user.set(is_onboarded: true)
+    render json: { onboarded: true }
+  end
+
   private
   def set_user
     return @user = current_user if params[:id].to_sym == :me

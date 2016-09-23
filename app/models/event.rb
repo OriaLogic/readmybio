@@ -6,13 +6,14 @@ class Event
   belongs_to :user
 
   field :title, type: String
-  field :description, type: String
-  field :extra_description, type: String
+  field :quick_description, type: String
+  field :full_description, type: String
   field :event_date, type: Date
 
   validates :title, presence: true
   validates :title, length: { minimum: 3, maximum: 200 }
-  validates :description, length: { maximum: 1000 }
+  validates :quick_description, length: { maximum: 500 }
+  validates :full_description, length: { maximum: 10000 }
 
   index({ user_id: 1, event_date: -1 }, { background: true })
   index({ user_id: 1, title: 1, event_date: -1 }, { background: true })

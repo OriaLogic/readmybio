@@ -35,6 +35,8 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
 
+  field :is_onboarded,    type: Boolean, default: false
+
   has_many :tags
   has_many :events
 end

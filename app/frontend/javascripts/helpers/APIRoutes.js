@@ -6,3 +6,4 @@ export const CategoriesJSONPath = () => '/tags.json';
 export const UserCategoriesJSONPath = (userId) => `/users/${userId}/categories.json`;
 export const EventJSONPath = (userId, eventId) => `/events/${eventId}.json?user_id=${userId}`;
 export const UpdateEventJSONPath = (userId, eventId) => `/events/${eventId}.json?user_id=${userId}`;
+export const UserValidateOnboardingJSONPath = () => '/users/validate_onboarding.json'

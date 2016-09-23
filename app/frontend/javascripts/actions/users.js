@@ -1,6 +1,6 @@
 import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_CATEGORIES_SUCCESS, SET_DISPLAYED_USER } from '../constants/actionTypes';
-import { UserJSONPath, LogoutUserPath, UserCategoriesJSONPath } from '../helpers/APIRoutes';
-import { defaultFetch } from '../helpers/API';
+import { UserJSONPath, LogoutUserPath, UserCategoriesJSONPath, UserValidateOnboardingJSONPath } from '../helpers/APIRoutes';
+import { defaultFetch, defaultPatch } from '../helpers/API';
 
 export const fetchUser = () => dispatch => {
   dispatch({
@@ -13,6 +13,8 @@ export const fetchUser = () => dispatch => {
         type: FETCH_USER_SUCCESS,
         user
       });
+
+      return user;
     });
 }
 
@@ -37,4 +39,8 @@ export const fetchUserCategories = (userId) => (dispatch, getState) => {
         eventsCount: events_count
       });
     });
+}
+
+export const validateOnboarding = () => {
+  return defaultPatch(UserValidateOnboardingJSONPath());
 }

@@ -54,3 +54,16 @@ $light-brand-info: lighten($brand-info, 5%);
 
   }
 }
+
+.tag-finder {
+  .selected-tags {
+    display: inline-block;
+    li {
+      margin-right: 20px;
+    }
+  }
+
+  .possible-tags {
+
+  }
+}

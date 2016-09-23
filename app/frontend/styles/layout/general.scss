@@ -2,7 +2,7 @@ html, body {
   height: 100%;
 }
 
-#root, #app-main-container, #sidebar {
+#root, #app-main-container{
   height: 100%;
 }
 
@@ -25,7 +25,9 @@ html, body {
   border-top-right-radius: 0px;
 }
 
-#sidebar {
-  border-right: 1px solid $gray-light;
-  padding-right: 15px;
+.navbar {
+  a.navbar-brand {
+    position: fixed;
+    left: calc(50% - 25px);
+  }
 }
