@@ -8,7 +8,8 @@ class EditEvent extends Component {
     event: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
-    updateEvent: PropTypes.func.isRequired
+    updateEvent: PropTypes.func.isRequired,
+    categories: PropTypes.object.isRequired
   }
 
   state = {

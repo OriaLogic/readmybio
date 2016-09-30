@@ -7,6 +7,7 @@ $light-brand-info: lighten($brand-info, 5%);
     padding: 10px;
     color: white;
     min-height: 100px;
+    margin-bottom: 10px;
 
     h3 {
       margin-top: 0;
@@ -58,12 +59,14 @@ $light-brand-info: lighten($brand-info, 5%);
 .tag-finder {
   .selected-tags {
     display: inline-block;
+    vertical-align: middle;
     li {
       margin-right: 20px;
     }
   }
 
-  .possible-tags {
-
+  .dropdown {
+    vertical-align: middle;
+    .possible-tags {}
   }
 }

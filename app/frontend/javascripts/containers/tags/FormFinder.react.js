@@ -47,6 +47,11 @@ class FormFinder extends Component {
 
   render () {
     const { categories, selectedTagIds, onChange } = this.props;
+    const shouldOpenHintDropdown = (
+      this.computePossibleCategories().length > 0 &&
+      this.state.inputText &&
+      this.state.inputText.trim().length > 0
+    );
 
     return (
       <div
@@ -61,7 +66,8 @@ class FormFinder extends Component {
           }
 
           <div
-            style={{ position: 'relative', display: 'inline-block' }}>
+            style={{ position: 'relative', display: 'inline-block' }}
+            className={'dropdown ' + (shouldOpenHintDropdown ? 'open' : '')}>
             <input
               className='form-control'
               style={{ width: 150 }}
@@ -74,7 +80,7 @@ class FormFinder extends Component {
               id='tag-finder'
             />
 
-            <ul className='possible-tags'>
+            <ul className='possible-tags dropdown-menu'>
               {this.renderPossibleCategories()}
             </ul>
           </div>
@@ -83,7 +89,7 @@ class FormFinder extends Component {
     );
   }
 
-  renderPossibleCategories = () => {
+  computePossibleCategories = () => {
     const { categories, selectedTagIds, onChange } = this.props;
     const { inputText } = this.state;
 
@@ -92,11 +98,26 @@ class FormFinder extends Component {
         selectedTagIds.indexOf(tagId) == -1 &&
         categories[tagId].name.indexOf(inputText) > -1
       )
-    }).map(tagId => {
+    })
+  }
+
+  renderPossibleCategories = () => {
+    const { categories, onChange } = this.props;
+
+    return this.computePossibleCategories().map(tagId => {
       return (
         <li
           key={tagId}>
-          <a href="#">{categories[tagId].name}</a>
+          <a
+            href="#"
+            onClick={() => {
+              onChange(tagId);
+              this.setState({
+                inputText: ''
+              });
+            }}>
+            {categories[tagId].name}
+          </a>
         </li>
       )
     });

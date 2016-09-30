@@ -1,6 +1,6 @@
 import {
   FETCH_USER_SUCCESS,
-  FETCH_CATEGORIES_SUCCESS,
+  FETCH_DATA_SUCCESS,
   CREATE_EVENT_SUCCESS
 } from '../constants/actionTypes';
 
@@ -21,14 +21,14 @@ const users = (state = initialState, action) => {
         },
         currentUserId: action.user.id
       };
-    case FETCH_CATEGORIES_SUCCESS:
+    case FETCH_DATA_SUCCESS:
       return {
         ...state,
         list: {
           ...state.list,
           [action.user.id]: {
             ...action.user,
-            eventsCount: action.eventsCount
+            eventsCount: action.events.length
           }
         },
         displayedUserId: action.user.id

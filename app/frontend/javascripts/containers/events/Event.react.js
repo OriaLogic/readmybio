@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import EventComponent from '../../components/events/Event.react';
 
-const mapStateToProps = ({ events, users }, { params }) => {
+const mapStateToProps = ({ events, users, categories }, { params }) => {
   return {
-    event: events.list[params.eventId],
+    event: events[users.displayedUserId][params.eventId],
+    categories: categories[users.displayedUserId],
     canEdit: (users.currentUserId === users.displayedUserId)
   }
 }

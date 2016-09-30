@@ -1,3 +1,5 @@
+import Empty from './helpers/String';
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute, Redirect, IndexRedirect } from 'react-router'
@@ -16,7 +18,7 @@ import FriendsIndex from './containers/friends/Index.react';
 import UserBio from './containers/users/UserBio.react';
 import CategoryEventsWrapper from './containers/categories/EventsWrapper.react';
 
-import { fetchUser, fetchUserCategories } from './actions/users';
+import { fetchUser, fetchUserData } from './actions/users';
 import { fetchEvent } from './actions/events';
 
 const fetchCurrentUserIfNeeded = (n, replace, callback) => {
@@ -34,12 +36,12 @@ const fetchCurrentUserIfNeeded = (n, replace, callback) => {
   }
 }
 
-const fetchUserCategoriesAndTransition = (nextState, replace, callback) => {
+const fetchUserDataAndTransition = (nextState, replace, callback) => {
   let { userId } = nextState.params;
   const currentUserId = store.getState().users.currentUserId;
   userId = userId === 'me' ? currentUserId : userId;
 
-  store.dispatch(fetchUserCategories(userId))
+  store.dispatch(fetchUserData(userId))
   .then(() => callback())
   .catch(error => {
     replace(`/friends`);
@@ -74,12 +76,13 @@ render(
       <Route path='/onboarding' component={Onboarding} onEnter={fetchCurrentUserIfNeeded}/>
 
       <Route path='/' component={App} onEnter={fetchCurrentUserIfNeeded}>
-        <IndexRedirect to='users/me/categories' />
+        <IndexRedirect to='users/me/events' />
 
-        <Route path='users/:userId' onEnter={fetchUserCategoriesAndTransition} component={UserBio}>
+        <Route path='users/:userId' onEnter={fetchUserDataAndTransition} component={UserBio}>
           <Route path='categories' component={CategoriesIndex} />
 
           <Route path="events">
+            <IndexRoute component={EventsIndex} />
             <Route path="new" component={EventCreator} onEnter={ensureDisplayUserIsCurrentUser} />
             <Route path=":eventId" onEnter={fetchEventAndTransition}>
               <IndexRoute component={Event} />

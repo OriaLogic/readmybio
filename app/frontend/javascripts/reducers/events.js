@@ -4,15 +4,20 @@ import {
   EDIT_EVENT,
   UPDATE_EVENT, UPDATE_EVENT_SUCCESS,
   FETCH_EVENT, FETCH_EVENT_SUCCESS,
-  FETCH_EVENTS, FETCH_EVENTS_SUCCESS
+  FETCH_EVENTS, FETCH_EVENTS_SUCCESS,
+  FETCH_DATA, FETCH_DATA_SUCCESS
 } from '../constants/actionTypes';
 
 import { forEach } from 'lodash';
 import event from './event';
 
 const initialState = {
-  list: {},
-  loading: false
+  loading: false,
+  filter: {
+    category: null,
+    date: null,
+    title: null
+  }
 }
 
 const events = (state = initialState, action) => {
@@ -20,33 +25,32 @@ const events = (state = initialState, action) => {
     case CREATE_EVENT_SUCCESS:
       return {
         ...state,
-        list: {
-          ...state.list,
-          [action.event.id]: action.event
+        [action.userId]: {
+          ...state[action.userId],
+          [action.event.id]: event(undefined, action)
         }
-      }
-    case DELETE_EVENT:
-      return state;
-    case UPDATE_EVENT_SUCCESS:
+      };
     case FETCH_EVENT_SUCCESS:
+      const userEvents = state[action.userId];
+      console.log(userEvents, userEvents[action.eventId], action, event(userEvents[action.eventId], action))
       return {
         ...state,
-        list: {
-          ...state.list,
-          [action.eventId]: event(state.list[action.eventId], action)
+        [action.userId]: {
+          ...userEvents,
+          [action.eventId]: event(userEvents[action.eventId], action)
         }
       }
-    case FETCH_EVENTS:
+    case FETCH_EVENTS, FETCH_DATA:
       return {
         ...state,
         loading: true
       };
-    case FETCH_EVENTS_SUCCESS:
+    case FETCH_EVENTS_SUCCESS, FETCH_DATA_SUCCESS:
       const list = {};
       forEach(action.events, (e) => list[e.id] = e);
       return {
         ...state,
-        list,
+        [action.user.id]: list,
         loading: false
       };
     default:

@@ -12,7 +12,7 @@ class Event
 
   validates :title, presence: true
   validates :title, length: { minimum: 3, maximum: 200 }
-  validates :quick_description, length: { maximum: 500 }
+  validates :quick_description, length: { maximum: 300 }
   validates :full_description, length: { maximum: 10000 }
 
   index({ user_id: 1, event_date: -1 }, { background: true })

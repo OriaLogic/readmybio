@@ -2,11 +2,11 @@ import { connect } from 'react-redux';
 import EditComponent from '../../components/events/Edit.react';
 import { updateEvent } from '../../actions/events';
 
-const mapStateToProps = ({ events, users }, { params }) => {
-  const { list: eventsList } = events;
-
+const mapStateToProps = ({ events, users, categories }, { params }) => {
+  const { currentUserId } = users;
   return {
-    event: eventsList[params.eventId]
+    event: events[currentUserId][params.eventId],
+    categories: categories[currentUserId]
   }
 };
 

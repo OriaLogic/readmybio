@@ -40,7 +40,8 @@ export default class EventCreator extends Component {
                 this.form.reset();
                 afterCreate(e);
               })
-            }}>
+            }}
+            style={{ marginBottom: 20 }}>
             <div className="form-group">
               <label>
                 Title
@@ -49,7 +50,7 @@ export default class EventCreator extends Component {
                 type="text"
                 className="form-control"
                 ref={node => { this.titleInput = node; }}
-                style={{ width: 100 }}
+                style={{ width: 300 }}
                 maxLength={200}
                 />
             </div>

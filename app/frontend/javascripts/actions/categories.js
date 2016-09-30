@@ -1,4 +1,4 @@
-import { FETCH_CATEGORIES, FETCH_CATEGORIES_SUCCESS } from '../constants/actionTypes';
+import { FETCH_CATEGORIES, FETCH_DATA_SUCCESS } from '../constants/actionTypes';
 import { CategoriesJSONPath } from '../helpers/APIRoutes';
 import { defaultFetch } from '../helpers/API';
 

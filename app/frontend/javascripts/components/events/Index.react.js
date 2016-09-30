@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { NewUserEventPath } from '../../helpers/Routes';
-import EventRow from './EventRow.react';
+import EventBox from './EventBox.react';
 import EventLoadingPlaceholder from './EventLoadingPlaceholder.react';
 import NoEventPlaceholder from './NoEventPlaceholder.react';
 import { keys } from 'lodash';
@@ -15,14 +15,14 @@ const EventsIndexComponent = ({ canEdit, events, loading, params }) => {
   return (
     <div
       style={{ position: 'relative' }}
-      className='events-list'>
+      className='row events-list'>
 
       {
         keys(events).map(eventId => {
           const e = events[eventId];
 
           return (
-            <EventRow
+            <EventBox
               event={e}
               key={e.id}
               canEdit={canEdit}

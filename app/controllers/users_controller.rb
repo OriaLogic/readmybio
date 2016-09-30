@@ -1,16 +1,16 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:categories]
+  before_action :set_user, only: [:data]
 
   def current
     render json: normalize_for_json(current_user)
   end
 
-  def categories
+  def data
     categories = @user.tags
 
     render json: normalize_for_json({
       user: @user,
-      events_count: @user.events.count,
+      events: @user.events,
       categories: categories
     })
   end

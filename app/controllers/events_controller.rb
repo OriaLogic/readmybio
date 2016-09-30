@@ -32,7 +32,10 @@ class EventsController < ApplicationController
         tag.event_ids << event.id
       end
 
-      render json: normalize_for_json(event)
+      render json: normalize_for_json({
+        event: event,
+        tags: event.tags
+      })
     end
   end
 

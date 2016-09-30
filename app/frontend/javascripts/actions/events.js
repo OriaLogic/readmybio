@@ -9,22 +9,25 @@ import { defaultFetch, defaultPost, defaultPatch } from '../helpers/API';
 
 export const fetchEventsForUserAndCategory = (userId, categoryId) => dispatch => {
   dispatch({
-    type: FETCH_EVENTS
+    type: FETCH_EVENTS,
+    userId
   });
 
   return defaultFetch(EventsJSONPath(userId, categoryId))
     .then(events => {
       dispatch({
         type: FETCH_EVENTS_SUCCESS,
-        events
+        events,
+        userId
       });
     });
 }
 
 export const fetchEvent = (userId, eventId) => (dispatch, getState) => {
-  const { events } = getState();
+  const { events, users } = getState();
+  userId = users.displayedUserId;
 
-  const toFetchEvent = events.list[eventId];
+  const toFetchEvent = events[userId][eventId];
   if (toFetchEvent && toFetchEvent.fullFetch) {
     return Promise.resolve();
   }
@@ -34,33 +37,40 @@ export const fetchEvent = (userId, eventId) => (dispatch, getState) => {
       dispatch({
         type: FETCH_EVENT_SUCCESS,
         event,
-        eventId
+        eventId,
+        userId
       });
     });
 };
 
-export const createEvent = (e) => dispatch => {
+export const createEvent = (e) => (dispatch, getState) => {
+  const userId = getState().users.currentUserId;
+
   dispatch({
     type: CREATE_EVENT,
-    event: e
+    event: e,
+    userId
   });
 
   return defaultPost(CreateEventJSONPath(), {
     body: JSON.stringify({ event: e })
-  }).then(e => {
+  }).then(({ event, tags }) => {
       dispatch({
         type: CREATE_EVENT_SUCCESS,
-        event: e
+        event,
+        userId,
+        categories: tags
       });
 
-      return e;
+      return event;
   });
 }
 
 export const updateEvent = (userId, eventId, eventParams) => dispatch => {
   dispatch({
     type: UPDATE_EVENT,
-    eventId
+    eventId,
+    userId
   });
 
   return defaultPatch(UpdateEventJSONPath(userId, eventId), {
@@ -68,6 +78,7 @@ export const updateEvent = (userId, eventId, eventParams) => dispatch => {
   }).then(e => dispatch({
       type: UPDATE_EVENT_SUCCESS,
       event: e,
-      eventId
+      eventId,
+      userId
     }));
 }

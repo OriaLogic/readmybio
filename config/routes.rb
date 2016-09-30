@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [] do
       get 'current', on: :collection
-      get 'categories', on: :member
+      get 'data', on: :member
       patch 'validate_onboarding', on: :collection
     end
 

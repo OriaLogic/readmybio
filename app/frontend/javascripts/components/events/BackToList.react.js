@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { UserCategorieEventsPath } from '../../helpers/Routes';
+import { UserEventsPath } from '../../helpers/Routes';
 
-const BackToList = ({ location, params }) => {
-  const fromCategory = location.query.from_category || 'all';
+const BackToList = ({ params }) => {
   const { userId } = params;
-  
+
   return (
-    <Link to={UserCategorieEventsPath(userId, fromCategory)}>
+    <Link to={UserEventsPath(userId)}>
       <i className='glyphicon glyphicon-arrow-left' />
       {' Back to list'}
     </Link>
@@ -15,7 +14,6 @@ const BackToList = ({ location, params }) => {
 }
 
 BackToList.propTypes = {
-  location: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired
 };
 

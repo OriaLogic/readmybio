@@ -1,5 +1,5 @@
-import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_CATEGORIES_SUCCESS, SET_DISPLAYED_USER } from '../constants/actionTypes';
-import { UserJSONPath, LogoutUserPath, UserCategoriesJSONPath, UserValidateOnboardingJSONPath } from '../helpers/APIRoutes';
+import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_DATA_SUCCESS, SET_DISPLAYED_USER } from '../constants/actionTypes';
+import { UserJSONPath, LogoutUserPath, UserDataJSONPath, UserValidateOnboardingJSONPath } from '../helpers/APIRoutes';
 import { defaultFetch, defaultPatch } from '../helpers/API';
 
 export const fetchUser = () => dispatch => {
@@ -23,20 +23,20 @@ export const logoutUser = () => dispatch  => {
     .then(() => window.location.reload())
 }
 
-export const fetchUserCategories = (userId) => (dispatch, getState) => {
+export const fetchUserData = (userId) => (dispatch, getState) => {
   const { categories } = getState();
 
   if (categories[userId]) {
     return Promise.resolve();
   }
 
-  return defaultFetch(UserCategoriesJSONPath(userId))
-    .then(({ user, categories, events_count }) => {
+  return defaultFetch(UserDataJSONPath(userId))
+    .then(({ user, categories, events }) => {
       dispatch({
-        type: FETCH_CATEGORIES_SUCCESS,
+        type: FETCH_DATA_SUCCESS,
         user,
         categories,
-        eventsCount: events_count
+        events
       });
     });
 }

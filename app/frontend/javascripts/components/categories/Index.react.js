@@ -10,7 +10,7 @@ const Index = ({ userId, categories, totalEventsCount }) => {
       <Category
         name={cat.name}
         id={categoryId}
-        eventsCount={cat.eventIds.length}
+        eventsCount={cat.event_ids.length}
         key={categoryId}
         userId={userId}
       />

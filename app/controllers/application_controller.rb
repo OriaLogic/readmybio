@@ -36,6 +36,8 @@ class ApplicationController < ActionController::Base
       end
       new_obj.delete '_id'
       return new_obj
+    elsif obj.is_a? BSON::ObjectId
+      return obj.to_s
     else
       return obj
     end

@@ -1,0 +1,12 @@
+.nav-light.nav-pills {
+  li {
+    a {
+      &.active {
+        background: none;
+        color: $gray-light;
+      }
+
+      &:hover { background: none; } 
+    }
+  }
+}
