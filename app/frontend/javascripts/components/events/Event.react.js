@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import BackToList from './BackToList.react';
 import { EditUserEventPath } from '../../helpers/Routes';
 import { Link } from 'react-router';
+import moment from 'moment';
+import { format as dateFormat } from '../../constants/date';
 
 const Event = ({ event, categories, canEdit, location, params }) => {
   const fromCategory = location.query.from_category || 'all';
@@ -12,10 +14,16 @@ const Event = ({ event, categories, canEdit, location, params }) => {
       <div className='col-md-8 col-md-offset-2'>
         <div
           className='event-container'>
-          <h3
-            className='title'>
-            {event.title.capitalize()}
-          </h3>
+          <div className='header'>
+            <h3
+              className='title'>
+              {event.title.capitalize()}
+            </h3>
+
+            <div className='additional-info'>
+              <span>{moment(event.event_date).format(dateFormat)}</span>
+            </div>
+          </div>
 
           <h5>Tags</h5>
           <ul className='nav tags-list'>

@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { EditUserEventPath, UserEventPath } from '../../helpers/Routes';
 import { Link } from 'react-router';
+import EventBoxImageShower from '../categories/EventBoxImageShower.react';
+import EventBoxTagShower from '../categories/EventBoxTagShower.react';
+import moment from 'moment';
+import { compressedFormat } from '../../constants/date';
+import { keys } from 'lodash';
 
-const EventBox = ({ event: ev, canEdit, params }) => {
+const EventBox = ({ event: ev, canEdit, params, categories }) => {
   const { userId, categoryId } = params;
 
   return (
@@ -36,6 +41,31 @@ const EventBox = ({ event: ev, canEdit, params }) => {
           }
         </div>
 
+        <EventBoxImageShower category={ev.tag_ids && ev.tag_ids.length ? categories[ev.tag_ids[0]] : null } />
+
+        <div
+          className='where-and-when clearfix'>
+          <span className='when pull-right'>
+            {moment(ev.event_date).format(compressedFormat)}
+          </span>
+        </div>
+
+        <div className='tags'>
+          <ul>
+            {
+              ev.tag_ids.map(tagId => {
+                return (
+                  <li
+                    key={tagId}>
+                    <EventBoxTagShower category={categories[tagId]} />
+                  </li>
+
+                )
+              })
+            }
+          </ul>
+        </div>
+
         <p className='quick-description'>{ev.quick_description}</p>
       </div>
     </div>
@@ -44,7 +74,8 @@ const EventBox = ({ event: ev, canEdit, params }) => {
 
 EventBox.propTypes = {
   canEdit: PropTypes.bool.isRequired,
-  event: PropTypes.object.isRequired
+  event: PropTypes.object.isRequired,
+  categories: PropTypes.object.isRequired
 }
 
 export default EventBox;

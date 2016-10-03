@@ -6,7 +6,7 @@ import EventLoadingPlaceholder from './EventLoadingPlaceholder.react';
 import NoEventPlaceholder from './NoEventPlaceholder.react';
 import { keys } from 'lodash';
 
-const EventsIndexComponent = ({ canEdit, events, loading, params }) => {
+const EventsIndexComponent = ({ categories, canEdit, events, loading, params }) => {
   if (loading) return <EventLoadingPlaceholder />
 
   if (keys(events).length === 0) return <NoEventPlaceholder />
@@ -27,6 +27,7 @@ const EventsIndexComponent = ({ canEdit, events, loading, params }) => {
               key={e.id}
               canEdit={canEdit}
               params={params}
+              categories={categories}
             />
           );
         })
@@ -38,7 +39,8 @@ const EventsIndexComponent = ({ canEdit, events, loading, params }) => {
 EventsIndexComponent.propTypes = {
   canEdit: PropTypes.bool.isRequired,
   events: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  categories: PropTypes.object.isRequired
 }
 
 export default EventsIndexComponent;

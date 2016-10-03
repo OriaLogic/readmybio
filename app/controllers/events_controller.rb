@@ -25,8 +25,6 @@ class EventsController < ApplicationController
       matchingTag.id
     end
 
-    e_params[:event_date] = Time.now
-
     if event = current_user.events.create(e_params)
       tags.each do |tag|
         tag.event_ids << event.id
@@ -50,7 +48,7 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:title, :quick_description, :full_description, :tag_ids => [])
+    params.require(:event).permit(:title, :event_date, :quick_description, :full_description, :tag_ids => [])
   end
 
   def authorize_user

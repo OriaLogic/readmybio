@@ -5,6 +5,8 @@ import { syncedHistory } from '../../store';
 import { UserEventPath } from '../../helpers/Routes';
 import TagFinder from '../tags/FormFinder.react';
 import { filter } from 'lodash';
+var DatePicker = require('react-datepicker');
+var moment = require('moment');
 
 export default class EventCreator extends Component {
   static propTypes = {
@@ -14,15 +16,16 @@ export default class EventCreator extends Component {
   }
 
   state = {
-    selectedTagIds: []
+    selectedTagIds: [],
+    eventDate: moment()
   }
 
   render () {
     const { create, afterCreate, eventsCount } = this.props;
-    const { selectedTagIds } = this.state;
+    const { selectedTagIds, eventDate } = this.state;
 
     return (
-      <div className='row'>
+      <div className='row event-creator'>
         <div className='col-md-8 col-md-offset-2'>
           <h3>{`Create ${eventsCount === 0 ? 'your first' : ''} event`}</h3>
           <form
@@ -35,14 +38,17 @@ export default class EventCreator extends Component {
                 title: this.titleInput.value,
                 quick_description: this.quickDescriptionTextArea.value,
                 full_description: this.fullDescriptionTextArea.value,
-                tag_ids: selectedTagIds
+                tag_ids: selectedTagIds,
+                event_date: eventDate
               }).then((e) => {
                 this.form.reset();
                 afterCreate(e);
               })
             }}
             style={{ marginBottom: 20 }}>
-            <div className="form-group">
+            <div
+              style={{ display: 'inline-block' }}
+              className="form-group">
               <label>
                 Title
               </label>
@@ -53,6 +59,19 @@ export default class EventCreator extends Component {
                 style={{ width: 300 }}
                 maxLength={200}
                 />
+            </div>
+
+            <div
+              style={{ display: 'inline-block' }}
+              className="form-group date-picker-container">
+              <label>
+                Where
+              </label>
+              <DatePicker
+                selected={eventDate}
+                onChange={d => { this.setState({ eventDate: d}) }}
+                showYearDropdown={true}
+              />
             </div>
 
             <TagFinder

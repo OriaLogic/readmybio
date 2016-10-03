@@ -13,6 +13,9 @@
     position: relative;
     padding: 10px;
     border-radius: 3px;
+    max-height: 400px;
+    height: 400px;
+    overflow-y: hidden;
 
     &:hover {
       border: 1px solid black;
@@ -29,10 +32,63 @@
       font-size: 10px;
     }
 
-    .quick-description {
-      margin: 0px;
-      height: 200px;
-      overflow: hidden;
+    .image-shower {
+      width: 100%;
+      height: 80px;
+      text-transform: uppercase;
+      text-align: center;
+      color: $gray-light;
+      padding: 30px;
+      opacity: 0.8;
+      margin-bottom: 5px;
+
+      &.category-color-1 {
+        background-color: $category-color-1;
+        .no-image-placeholder { color: darken($category-color-1, 30%); }
+      }
+      &.category-color-2 {
+        background-color: $category-color-2;
+        .no-image-placeholder { color: darken($category-color-2, 30%); }
+      }
+      &.category-color-3 {
+        background-color: $category-color-3;
+        .no-image-placeholder { color: darken($category-color-3, 30%); }
+      }
+      &.category-color-4 {
+        background-color: $category-color-4;
+        .no-image-placeholder { color: darken($category-color-4, 30%); }
+      }
+
+      .no-image-placeholder {
+        font-weight: bold;
+        opacity: 0.4;
+      }
+    }
+
+    .where-and-when {
+      .when {
+        color: $text-muted;
+        font-size: 12px;
+      }
+    }
+
+    .tags {
+      margin-bottom: 10px;
+      ul {
+        list-style: none;
+        display: block;
+        @extend .nav;
+        li {
+          float: left;
+          margin-right: 10px;
+          display: block;
+          position: relative;
+          span.category-color-1 { color: $category-color-1 }
+          span.category-color-2 { color: $category-color-2 }
+          span.category-color-3 { color: $category-color-3 }
+          span.category-color-4 { color: $category-color-4 }
+        }
+      }
     }
 
     .title {
@@ -47,15 +103,21 @@
 }
 
 .event {
-  .event-pre {
-
-  }
-
   .event-container {
     margin-top: 10px;
     padding: 10px;
 
-    .title {}
+    .header {
+      position: relative;
+      .title {
+        width: calc(100% - 200px);
+      }
+      .additional-info {
+        position: absolute;
+        right: 0;
+        top: 5px;
+      }
+    }
     h5 {
       font-weight: bold;
       margin-top: 30px;
@@ -85,5 +147,20 @@
 
   .actions {
     margin-top: 20px;
+  }
+}
+
+.event-creator {
+  form { position: relative; }
+
+  .date-picker-container {
+    display: block;
+    position: absolute;
+    right: 0px;
+
+    .react-datepicker__input-container {
+      display: block;
+      input { @extend .form-control; }
+    }
   }
 }
