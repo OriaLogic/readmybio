@@ -5,18 +5,21 @@ import {
   UPDATE_EVENT, UPDATE_EVENT_SUCCESS,
   FETCH_EVENT, FETCH_EVENT_SUCCESS,
   FETCH_EVENTS, FETCH_EVENTS_SUCCESS,
-  FETCH_DATA, FETCH_DATA_SUCCESS
+  FETCH_DATA, FETCH_DATA_SUCCESS,
+  SET_FILTER
 } from '../constants/actionTypes';
 
 import { forEach } from 'lodash';
 import event from './event';
+import moment from 'moment';
 
 const initialState = {
   loading: false,
   filter: {
-    category: null,
-    date: null,
-    title: null
+    title: null,
+    tagId: null,
+    startDate: null,
+    endDate: null,
   }
 }
 
@@ -32,7 +35,6 @@ const events = (state = initialState, action) => {
       };
     case FETCH_EVENT_SUCCESS:
       const userEvents = state[action.userId];
-      console.log(userEvents, userEvents[action.eventId], action, event(userEvents[action.eventId], action))
       return {
         ...state,
         [action.userId]: {
@@ -47,12 +49,26 @@ const events = (state = initialState, action) => {
       };
     case FETCH_EVENTS_SUCCESS, FETCH_DATA_SUCCESS:
       const list = {};
-      forEach(action.events, (e) => list[e.id] = e);
+      const { events } = action;
+      forEach(events, (e) => list[e.id] = e);
       return {
         ...state,
+        filter: {
+          ...state.filter,
+          startDate: moment(events.length > 0 ? events[events.length - 1].event_date : null),
+          endDate: moment(events.length > 0 ? events[0].event_date : null),
+        },
         [action.user.id]: list,
         loading: false
       };
+    case SET_FILTER:
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          [action.name]: action.value
+        }
+      }
     default:
       return state;
   }

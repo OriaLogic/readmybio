@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     render json: normalize_for_json({
       user: @user,
-      events: @user.events,
+      events: @user.events.order_by(event_date: -1),
       categories: categories
     })
   end

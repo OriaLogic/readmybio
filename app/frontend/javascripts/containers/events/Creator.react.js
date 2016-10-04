@@ -5,8 +5,8 @@ import { syncedHistory } from '../../store';
 import { UserEventPath } from '../../helpers/Routes';
 import TagFinder from '../tags/FormFinder.react';
 import { filter } from 'lodash';
-var DatePicker = require('react-datepicker');
-var moment = require('moment');
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 export default class EventCreator extends Component {
   static propTypes = {

@@ -5,33 +5,51 @@ import EventBox from './EventBox.react';
 import EventLoadingPlaceholder from './EventLoadingPlaceholder.react';
 import NoEventPlaceholder from './NoEventPlaceholder.react';
 import { keys } from 'lodash';
+import IndexNav from './IndexNav.react';
+import IndexSearch from '../../containers/events/IndexSearch.react';
 
-const EventsIndexComponent = ({ categories, canEdit, events, loading, params }) => {
-  if (loading) return <EventLoadingPlaceholder />
+const EventsIndexComponent = ({
+  filter, categories, canEdit, events, loading, params,
+  setFilterTitle, setFilterTag, setFilterStartDate, setFilterEndDate
+}) => {
 
-  if (keys(events).length === 0) return <NoEventPlaceholder />
+  let content;
+
+  if (loading) {
+    content = <EventLoadingPlaceholder />
+  } else if (keys(events).length === 0) {
+    content = <NoEventPlaceholder />
+  } else {
+    content = keys(events).map(eventId => {
+      const e = events[eventId];
+
+      return (
+        <EventBox
+          event={e}
+          key={e.id}
+          canEdit={canEdit}
+          params={params}
+          categories={categories}
+        />
+      );
+    });
+  }
+
 
   // If not loading and eventsList is not empty
   return (
-    <div
-      style={{ position: 'relative' }}
-      className='row events-list'>
+    <div className='events-index'>
+      <IndexNav/>
 
-      {
-        keys(events).map(eventId => {
-          const e = events[eventId];
+      <div className='pull-right' style={{ paddingTop: 8 }}>
+        <IndexSearch />
+      </div>
 
-          return (
-            <EventBox
-              event={e}
-              key={e.id}
-              canEdit={canEdit}
-              params={params}
-              categories={categories}
-            />
-          );
-        })
-      }
+      <div
+        style={{ position: 'relative' }}
+        className='row events-list'>
+        {content}
+      </div>
     </div>
   );
 }

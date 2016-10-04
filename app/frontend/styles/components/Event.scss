@@ -15,7 +15,7 @@
     border-radius: 3px;
     max-height: 400px;
     height: 400px;
-    overflow-y: hidden;
+    overflow-y: auto;
 
     &:hover {
       border: 1px solid black;
@@ -161,6 +161,15 @@
     .react-datepicker__input-container {
       display: block;
       input { @extend .form-control; }
+    }
+  }
+}
+
+.events-index {
+  .form-inline {
+    .react-datepicker__input-container > input {
+      @extend .form-control;
+      width: 100px;
     }
   }
 }

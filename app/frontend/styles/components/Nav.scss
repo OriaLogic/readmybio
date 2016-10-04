@@ -1,12 +1,22 @@
 .nav-light.nav-pills {
+  margin-bottom: 20px;
+  display: inline-block;
+
   li {
+    margin-left: 0px;
     a {
+      border-radius: 0px;
+      h4 { margin: 0px; }
+      color: lighten($gray-light, 20%);
+
+      border-bottom: 1px solid lighten($gray-light, 20%);
       &.active {
         background: none;
-        color: $gray-light;
+        color: $brand-primary;
+        border-bottom: 1px solid $brand-primary;
       }
 
-      &:hover { background: none; } 
+      &:hover { background: none; }
     }
   }
 }

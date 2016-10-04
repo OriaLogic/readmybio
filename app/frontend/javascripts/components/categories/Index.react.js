@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Category, { ALL_CATEGORY_ID } from './Category.react';
 import { forEach, keys } from 'lodash';
+import IndexNav from '../events/IndexNav.react';
 
 const Index = ({ userId, categories, totalEventsCount }) => {
   const cats = keys(categories).map(categoryId => {
@@ -17,21 +18,9 @@ const Index = ({ userId, categories, totalEventsCount }) => {
     );
   })
 
-  cats.unshift(
-    <Category
-      name={ALL_CATEGORY_ID}
-      eventsCount={totalEventsCount}
-      id={ALL_CATEGORY_ID}
-      key={ALL_CATEGORY_ID}
-      userId={userId}
-    />
-  );
-
   return (
     <div>
-      <h2 className='text-muted'>
-        Themes
-      </h2>
+      <IndexNav/>
 
       <div
         className='row'>

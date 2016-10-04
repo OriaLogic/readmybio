@@ -82,3 +82,11 @@ export const updateEvent = (userId, eventId, eventParams) => dispatch => {
       userId
     }));
 }
+
+export const setFilter = (value, name) => {
+  return {
+    type: 'SET_FILTER',
+    name,
+    value
+  }
+}

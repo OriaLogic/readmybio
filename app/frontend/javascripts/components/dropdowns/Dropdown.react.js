@@ -21,7 +21,8 @@ class Dropdown extends React.Component {
       React.PropTypes.string
     ]).isRequired,
     closeAfterClick: React.PropTypes.bool,
-    closeIfClickOutside: React.PropTypes.bool
+    closeIfClickOutside: React.PropTypes.bool,
+    dropdownLinkClass: React.PropTypes.string
   }
 
   state = {
@@ -45,28 +46,31 @@ class Dropdown extends React.Component {
   }
 
   render () {
+    const { dropdownLinkClass, container, externalLinkContent, children } = this.props;
+    const { open } = this.state;
+
     let topClass = classnames('dropdown', {
-      open: this.state.open
+      open
     });
 
     let dropdownLink = (
       <a
         href="#"
-        className="dropdown-toggle"
+        className={"dropdown-toggle " + dropdownLinkClass }
         onClick={this.toggleDropdown}>
-        {this.props.externalLinkContent}
+        {externalLinkContent}
       </a>
     );
 
     let dropdownContent = (
       <ul
         className="dropdown-menu"
-        style={{ display: (this.state.open ? 'block' : 'none') }}>
-        { this.props.children }
+        style={{ display: (open ? 'block' : 'none') }}>
+        { children }
       </ul>
     );
 
-    switch (this.props.container) {
+    switch (container) {
     case DROPDOWN_CONTAINERS_TYPES.LI:
       return (
         <li
@@ -81,6 +85,7 @@ class Dropdown extends React.Component {
       return (
         <div
           className={topClass}
+          style={{ display: 'inline-block' }}
           id={this.id}>
           { dropdownLink }
           { dropdownContent }

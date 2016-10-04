@@ -12,7 +12,7 @@ const Category = ({ userId, name, id, eventsCount }) => {
         className='category'
         id={id === ALL_CATEGORY_ID ? ALL_CATEGORY_ID : null}>
         <div className='category-container'>
-          <h3>{name}</h3>
+          <h4>{name}</h4>
           <p>Events: {eventsCount}</p>
         </div>
       </Link>

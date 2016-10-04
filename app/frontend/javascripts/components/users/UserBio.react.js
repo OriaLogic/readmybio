@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import PresentationalUserImage from './PresentationalImage.react';
-import { NewUserEventPath, UserEventsPath, UserCategoriesPath } from '../../helpers/Routes';
+import { NewUserEventPath } from '../../helpers/Routes';
 import { Link } from 'react-router';
-import NavLink from '../links/NavLink.react';
 
 const UserBioComponent = ({ displayedUser, nbEvents, isCurrentUser, children }) => {
   return (
@@ -20,13 +19,11 @@ const UserBioComponent = ({ displayedUser, nbEvents, isCurrentUser, children }) 
 
         <div
           style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: 30 }}>
-          <h3
+          <h4
             style={{ marginTop: 7 }}>
             {displayedUser.email}
-            <br/>
-            <small>Events: {nbEvents}</small>
-          </h3>
-
+          </h4>
+          <p className='text-muted'>Events: {nbEvents}</p>
         </div>
 
           <div className='pull-right additional-actions'>
@@ -34,22 +31,10 @@ const UserBioComponent = ({ displayedUser, nbEvents, isCurrentUser, children }) 
               {
                 isCurrentUser &&
                 <Link
-                  to={NewUserEventPath()}
-                  className='btn btn-default'>
+                  to={NewUserEventPath()}>
                   Create event
                 </Link>
               }
-            </div>
-
-            <div>
-              <ul className="nav nav-pills nav-light">
-                <li role="presentation">
-                  <NavLink to={UserEventsPath()}>All</NavLink>
-                </li>
-                <li role="presentation">
-                  <NavLink to={UserCategoriesPath()}>Categories</NavLink>
-                </li>
-              </ul>
             </div>
           </div>
       </div>

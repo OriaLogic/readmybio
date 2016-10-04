@@ -1,19 +1,19 @@
-$light-brand-info: lighten($brand-info, 5%);
+$light-brand-primary: lighten($brand-primary, 5%);
 
 .category {
   > div.category-container {
-    background-color: $brand-info;
+    background-color: $brand-primary;
     border-radius: 4px;
     padding: 10px;
     color: white;
-    min-height: 100px;
+    min-height: 70px;
     margin-bottom: 10px;
 
-    h3 {
+    h4 {
       margin-top: 0;
       text-align: center;
       text-transform: capitalize;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     p {
@@ -21,24 +21,16 @@ $light-brand-info: lighten($brand-info, 5%);
     }
   }
 
-  &#all {
-    > div.category-container {
-      border: 2px solid $brand-info;
-      background-color: white;
-      color: $brand-info;
-    }
-  }
-
   &:hover {
     text-decoration: none;
     > div.category-container {
-      background-color: $light-brand-info;
+      background-color: $light-brand-primary;
     }
 
     &#all {
       > div.category-container {
-        border: 2px solid $light-brand-info;
-        color: $light-brand-info;
+        border: 2px solid $light-brand-primary;
+        color: $light-brand-primary;
       }
     }
   }
