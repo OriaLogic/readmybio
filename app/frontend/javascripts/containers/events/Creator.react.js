@@ -7,6 +7,7 @@ import TagFinder from '../tags/FormFinder.react';
 import { filter } from 'lodash';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import FileUploader from '../../components/images/FileUploader.react';
 
 export default class EventCreator extends Component {
   static propTypes = {
@@ -17,12 +18,20 @@ export default class EventCreator extends Component {
 
   state = {
     selectedTagIds: [],
-    eventDate: moment()
+    eventDate: moment(),
+    images: []
+  }
+
+  onImageDrop = (files) => {
+    const { images } = this.state;
+    this.setState({
+      images: [...images, ...files]
+    });
   }
 
   render () {
     const { create, afterCreate, eventsCount } = this.props;
-    const { selectedTagIds, eventDate } = this.state;
+    const { selectedTagIds, eventDate, images } = this.state;
 
     return (
       <div className='row event-creator'>
@@ -107,6 +116,13 @@ export default class EventCreator extends Component {
                 ref={node => { this.fullDescriptionTextArea = node; }}
                 />
             </div>
+
+            <FileUploader
+              onDrop={this.onImageDrop}
+              files={images}
+              maxFiles={6}
+              mimeType={'image/*'}
+            />
 
             <div
               className='clearfix'>
