@@ -1,6 +1,6 @@
 import Dropzone from 'react-dropzone';
 import React, { Component, PropTypes } from 'react';
-import GoodSizeImage from './GoodSizeImage.react';
+import RemovableImage from './RemovableImage.react';
 
 export default class FileUploader extends Component {
   static propTypes = {
@@ -8,7 +8,8 @@ export default class FileUploader extends Component {
     onDrop: PropTypes.func.isRequired,
     maxFiles: PropTypes.number,
     mimeType: PropTypes.string.isRequired,
-    maxSize: PropTypes.number
+    maxSize: PropTypes.number,
+    onRemove: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -21,7 +22,7 @@ export default class FileUploader extends Component {
   }
 
   render = () => {
-    const { files, onDrop, maxFiles, mimeType } = this.props;
+    const { files, onDrop, maxFiles, mimeType, onRemove } = this.props;
 
     return (
       <div
@@ -37,7 +38,7 @@ export default class FileUploader extends Component {
                 <div
                   className='image-container'
                   key={file.preview}>
-                  <GoodSizeImage file={file} maxWidth={100} maxHeight={100} />
+                  <RemovableImage file={file} maxWidth={100} maxHeight={100} onRemove={onRemove} />
                 </div>
               )
             })

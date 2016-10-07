@@ -41,7 +41,7 @@ const EventBox = ({ event: ev, canEdit, params, categories }) => {
           }
         </div>
 
-        <EventBoxImageShower category={ev.tag_ids && ev.tag_ids.length ? categories[ev.tag_ids[0]] : null } />
+        <EventBoxImageShower event={ev} category={ev.tag_ids && ev.tag_ids.length ? categories[ev.tag_ids[0]] : null } />
 
         <div
           className='where-and-when clearfix'>

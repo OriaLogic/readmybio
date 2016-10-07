@@ -4,8 +4,9 @@ import {
   FETCH_EVENT, FETCH_EVENT_SUCCESS,
   UPDATE_EVENT, UPDATE_EVENT_SUCCESS,
 } from '../constants/actionTypes';
-import { EventsJSONPath, EventJSONPath, CreateEventJSONPath, UpdateEventJSONPath } from '../helpers/APIRoutes';
+import { EventsJSONPath, EventJSONPath, CreateEventJSONPath, CreateEventImagesJSONPath, UpdateEventJSONPath } from '../helpers/APIRoutes';
 import { defaultFetch, defaultPost, defaultPatch } from '../helpers/API';
+import { forEach } from 'lodash';
 
 export const fetchEventsForUserAndCategory = (userId, categoryId) => dispatch => {
   dispatch({
@@ -52,9 +53,20 @@ export const createEvent = (e) => (dispatch, getState) => {
     userId
   });
 
+  let event, tags;
   return defaultPost(CreateEventJSONPath(), {
     body: JSON.stringify({ event: e })
   }).then(({ event, tags }) => {
+    event = event;
+    tags = tags;
+
+    let data = new FormData();
+    forEach(e.images, image => data.append(`images_${image.name}`, image));
+    return defaultPost(CreateEventImagesJSONPath(event.id), {
+      body: data,
+      headers: {}
+    });
+  }).then((event) => {
       dispatch({
         type: CREATE_EVENT_SUCCESS,
         event,
@@ -83,10 +95,11 @@ export const updateEvent = (userId, eventId, eventParams) => dispatch => {
     }));
 }
 
-export const setFilter = (value, name) => {
+export const setFilter = (userId, value, name) => {
   return {
     type: 'SET_FILTER',
     name,
-    value
+    value,
+    userId
   }
 }

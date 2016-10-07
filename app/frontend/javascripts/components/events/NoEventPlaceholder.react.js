@@ -6,8 +6,8 @@ export default ({ canEdit }) => {
   return (
     <div
       className='event-loading-placeholder'>
-      <h3 className='text-muted'>
-        No event yet
+      <h3 className='text-muted' style={{ marginTop: 10 }}>
+        No event
       </h3>
 
       {

@@ -29,3 +29,22 @@
 .active-image-dropzone {
 
 }
+
+.removable-image {
+  position: relative;
+
+  .remove-span {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    a {
+      color: rgba(0, 0, 0, 0.6);;
+    }
+  }
+
+  &:hover .remove-span { display: block; }
+}

@@ -9,18 +9,17 @@ import IndexNav from './IndexNav.react';
 import IndexSearch from '../../containers/events/IndexSearch.react';
 
 const EventsIndexComponent = ({
-  filter, categories, canEdit, events, loading, params,
-  setFilterTitle, setFilterTag, setFilterStartDate, setFilterEndDate
+  filter, categories, canEdit, events, loading, params, showEventsNb, displayedUserId,
+  showMoreEvents
 }) => {
-
-  let content;
+  let content, eventsKeys = keys(events);
 
   if (loading) {
     content = <EventLoadingPlaceholder />
-  } else if (keys(events).length === 0) {
+  } else if (eventsKeys.length === 0) {
     content = <NoEventPlaceholder />
   } else {
-    content = keys(events).map(eventId => {
+    content = eventsKeys.slice(0, showEventsNb).map(eventId => {
       const e = events[eventId];
 
       return (
@@ -47,9 +46,28 @@ const EventsIndexComponent = ({
 
       <div
         style={{ position: 'relative' }}
-        className='row events-list'>
-        {content}
+        className='events-list'>
+        <div className='row'>
+          {content}
+        </div>
       </div>
+
+      {
+        eventsKeys.length > 0 &&
+        <div className='footer'>
+          <span className='text-muted'>
+            Showing {Math.min(eventsKeys.length, showEventsNb)} of {eventsKeys.length} events.{' '}
+          </span>
+          {
+            (showEventsNb < eventsKeys.length) &&
+            <a
+              href='#'
+              onClick={e => { e.preventDefault(); showMoreEvents(displayedUserId) }}>
+              Show more
+            </a>
+          }
+        </div>
+      }
     </div>
   );
 }

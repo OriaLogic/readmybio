@@ -23,6 +23,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem "slim-rails"
 gem "devise"
+gem 'cloudinary'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

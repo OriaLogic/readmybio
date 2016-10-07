@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   devise_for :users, path: 'auth'
 
   scope :format => true, :constraints => { :format => 'json' }, :defaults => { :format => 'json' } do
-    resources :events, only: [:index, :create, :show, :update]
+    resources :events, only: [:index, :create, :show, :update] do
+      # member do
+      #   post 'images', :constraints => {}, :defaults => {}
+      #   post 'pdfs', :constraints => {}
+      # end
+    end
 
     resources :users, only: [] do
       get 'current', on: :collection
@@ -16,6 +21,9 @@ Rails.application.routes.draw do
       get 'autocomplete', on: :collection
     end
   end
+
+  post 'events/:id/images', to: 'events#images'
+  post 'events/:id/pdfs', to: 'events#pdfs'
 
   get '*path', to: 'application#index'
 end

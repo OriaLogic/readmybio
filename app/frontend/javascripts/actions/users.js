@@ -1,4 +1,4 @@
-import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_DATA_SUCCESS, SET_DISPLAYED_USER } from '../constants/actionTypes';
+import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_DATA_SUCCESS, SET_DISPLAYED_USER, SHOW_MORE_EVENTS } from '../constants/actionTypes';
 import { UserJSONPath, LogoutUserPath, UserDataJSONPath, UserValidateOnboardingJSONPath } from '../helpers/APIRoutes';
 import { defaultFetch, defaultPatch } from '../helpers/API';
 
@@ -19,7 +19,7 @@ export const fetchUser = () => dispatch => {
 }
 
 export const logoutUser = () => dispatch  => {
-  defaultFetch(LogoutUserPath(), { method: 'delete', noJSON: true })
+  defaultFetch(LogoutUserPath(), { method: 'deshowMoreEventslete', noJSON: true })
     .then(() => window.location.reload())
 }
 
@@ -44,3 +44,10 @@ export const fetchUserData = (userId) => (dispatch, getState) => {
 export const validateOnboarding = () => {
   return defaultPatch(UserValidateOnboardingJSONPath());
 }
+
+export const showMoreEvents = (userId) => {
+  return {
+    type: SHOW_MORE_EVENTS,
+    userId
+  }
+};

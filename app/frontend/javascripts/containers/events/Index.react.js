@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import EventIndexComponent from '../../components/events/Index.react';
-import { setFilter } from '../../actions/events';
 import { keys } from 'lodash';
 import { createSelector } from 'reselect'
 import moment from 'moment';
+import { showMoreEvents } from '../../actions/users';
 
 const getVisibilityFilter = ({ events }) => events.filter;
 const getEvents = ({ events, users }) => events[users.displayedUserId];
@@ -42,10 +42,19 @@ const mapStateToProps = (state) => {
     events: filterEvents(state),
     loading: loading,
     canEdit: (users.currentUserId === users.displayedUserId),
-    categories: categories[users.displayedUserId]
+    categories: categories[users.displayedUserId],
+    showEventsNb: users.list[users.displayedUserId].showEventsNb,
+    displayedUserId: users.displayedUserId
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    showMoreEvents: (userId) => { dispatch(showMoreEvents(userId)); }
   }
 }
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(EventIndexComponent);

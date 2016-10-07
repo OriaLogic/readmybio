@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 const IndexSearch = ({
-  filter, categories,
+  filter, categories, displayedUserId,
   setFilterTitle, setFilterTag, setFilterStartDate, setFilterEndDate
 }) => {
   return (
@@ -18,13 +18,13 @@ const IndexSearch = ({
           type="text"
           className="form-control"
           style={{ width: 100 }}
-          onChange={(e) => setFilterTitle(e.target.value)}
+          onChange={(e) => setFilterTitle(displayedUserId, e.target.value)}
         />
       </div>
       <div className="form-group" style={{ marginRight: 15 }}>
         <label style={{ marginRight: 5 }}>Tag</label>
         <TagSelector
-          onChange={setFilterTag}
+          onChange={tagId => setFilterTag(displayedUserId, tagId)}
           selectedTagId={filter.tagId}
           categories={categories}
         />
@@ -33,13 +33,13 @@ const IndexSearch = ({
         <label style={{ marginRight: 5 }}>Between</label>
         <DatePicker
           selected={filter.startDate}
-          onChange={setFilterStartDate}
+          onChange={startDate => setFilterStartDate(displayedUserId, startDate)}
           showYearDropdown={true}
         />
       <label style={{ marginLeft: 5, marginRight: 5 }}>and</label>
         <DatePicker
           selected={filter.endDate}
-          onChange={setFilterEndDate}
+          onChange={endDate => setFilterEndDate(displayedUserId, endDate)}
           showYearDropdown={true}Title
         />
       </div>
@@ -57,18 +57,20 @@ IndexSearch.propTypes = {
 };
 
 const mapStateToProps = ({ events, categories, users }) => {
+  const { displayedUserId } = users;
   return {
     filter: events.filter,
-    categories: categories[users.displayedUserId]
+    categories: categories[displayedUserId],
+    displayedUserId
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setFilterTitle: (title) => { dispatch(setFilter(title, 'title')) },
-    setFilterTag: (tagId) => { dispatch(setFilter(tagId, 'tagId')) },
-    setFilterStartDate: (startDate) => { dispatch(setFilter(startDate, 'startDate')) },
-    setFilterEndDate: (endDate) => { dispatch(setFilter(endDate, 'endDate')) },
+    setFilterTitle: (userId, title) => { dispatch(setFilter(userId, title, 'title')) },
+    setFilterTag: (userId, tagId) => { dispatch(setFilter(userId, tagId, 'tagId')) },
+    setFilterStartDate: (userId, startDate) => { dispatch(setFilter(userId, startDate, 'startDate')) },
+    setFilterEndDate: (userId, endDate) => { dispatch(setFilter(userId, endDate, 'endDate')) },
   };
 }
 

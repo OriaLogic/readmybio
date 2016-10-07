@@ -5,103 +5,6 @@
   padding: 20px;
 }
 
-.events-list {
-  .event-box {
-    margin-bottom: 30px;
-    background: none;
-    border: 1px solid lighten(black, 30%);
-    position: relative;
-    padding: 10px;
-    border-radius: 3px;
-    max-height: 400px;
-    height: 400px;
-    overflow-y: auto;
-
-    &:hover {
-      border: 1px solid black;
-    }
-
-    .event-box-container {
-      width: calc(100% - 50px);
-    }
-
-    .actions {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 10px;
-    }
-
-    .image-shower {
-      width: 100%;
-      height: 80px;
-      text-transform: uppercase;
-      text-align: center;
-      color: $gray-light;
-      padding: 30px;
-      opacity: 0.8;
-      margin-bottom: 5px;
-
-      &.category-color-1 {
-        background-color: $category-color-1;
-        .no-image-placeholder { color: darken($category-color-1, 30%); }
-      }
-      &.category-color-2 {
-        background-color: $category-color-2;
-        .no-image-placeholder { color: darken($category-color-2, 30%); }
-      }
-      &.category-color-3 {
-        background-color: $category-color-3;
-        .no-image-placeholder { color: darken($category-color-3, 30%); }
-      }
-      &.category-color-4 {
-        background-color: $category-color-4;
-        .no-image-placeholder { color: darken($category-color-4, 30%); }
-      }
-
-      .no-image-placeholder {
-        font-weight: bold;
-        opacity: 0.4;
-      }
-    }
-
-    .where-and-when {
-      .when {
-        color: $text-muted;
-        font-size: 12px;
-      }
-    }
-
-    .tags {
-      margin-bottom: 10px;
-      ul {
-        list-style: none;
-        display: block;
-        @extend .nav;
-        li {
-          float: left;
-          margin-right: 10px;
-          display: block;
-          position: relative;
-          span.category-color-1 { color: $category-color-1 }
-          span.category-color-2 { color: $category-color-2 }
-          span.category-color-3 { color: $category-color-3 }
-          span.category-color-4 { color: $category-color-4 }
-        }
-      }
-    }
-
-    .title {
-      margin: 0px;
-      margin-bottom: 15px;
-      width: 'calc(100% - 55px)';
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-}
-
 .event {
   .event-container {
     margin-top: 10px;
@@ -166,10 +69,132 @@
 }
 
 .events-index {
+  padding-bottom: 30px;
+
   .form-inline {
     .react-datepicker__input-container > input {
       @extend .form-control;
       width: 100px;
     }
+  }
+
+  .events-list {
+    margin-top: 20px;
+    max-width: 1018px;
+    margin: 0px auto;
+
+    .event-box {
+      margin-bottom: 30px;
+      background: none;
+      border: 1px solid lighten(black, 30%);
+      position: relative;
+      padding: 10px;
+      border-radius: 3px;
+      max-height: 400px;
+      height: 400px;
+      overflow-y: auto;
+
+      &:hover {
+        border: 1px solid black;
+      }
+
+      .event-box-container {
+        width: calc(100% - 50px);
+      }
+
+      .actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 10px;
+      }
+
+      .image-shower {
+        width: 100%;
+        height: 80px;
+        text-transform: uppercase;
+        text-align: center;
+        color: $gray-light;
+        padding: 30px;
+        opacity: 0.8;
+        margin-bottom: 5px;
+
+        &.category-color-1 {
+          background-color: $category-color-1;
+          .no-image-placeholder { color: darken($category-color-1, 30%); }
+        }
+        &.category-color-2 {
+          background-color: $category-color-2;
+          .no-image-placeholder { color: darken($category-color-2, 30%); }
+        }
+        &.category-color-3 {
+          background-color: $category-color-3;
+          .no-image-placeholder { color: darken($category-color-3, 30%); }
+        }
+        &.category-color-4 {
+          background-color: $category-color-4;
+          .no-image-placeholder { color: darken($category-color-4, 30%); }
+        }
+
+        .no-image-placeholder {
+          font-weight: bold;
+          opacity: 0.4;
+        }
+      }
+
+      img {
+        &.category-color-1 {
+          border: 2px solid $category-color-1;
+        }
+        &.category-color-2 {
+          border: 2px solid $category-color-2;
+        }
+        &.category-color-3 {
+          border: 2px solid $category-color-3;
+        }
+        &.category-color-4 {
+          border: 2px solid $category-color-4;
+        }
+      }
+
+      .where-and-when {
+        .when {
+          color: $text-muted;
+          font-size: 12px;
+        }
+      }
+
+      .tags {
+        margin-bottom: 10px;
+        ul {
+          list-style: none;
+          display: block;
+          @extend .nav;
+          li {
+            float: left;
+            margin-right: 10px;
+            display: block;
+            position: relative;
+            span.category-color-1 { color: $category-color-1 }
+            span.category-color-2 { color: $category-color-2 }
+            span.category-color-3 { color: $category-color-3 }
+            span.category-color-4 { color: $category-color-4 }
+          }
+        }
+      }
+
+      .title {
+        margin: 0px;
+        margin-bottom: 15px;
+        width: 'calc(100% - 55px)';
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .footer {
+    text-align: center;
   }
 }

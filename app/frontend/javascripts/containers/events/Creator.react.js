@@ -9,6 +9,12 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import FileUploader from '../../components/images/FileUploader.react';
 
+const BASE_STATE = {
+  selectedTagIds: [],
+  eventDate: moment(),
+  images: []
+};
+
 export default class EventCreator extends Component {
   static propTypes = {
     create: PropTypes.func.isRequired,
@@ -16,16 +22,18 @@ export default class EventCreator extends Component {
     eventsCount: PropTypes.number.isRequired
   }
 
-  state = {
-    selectedTagIds: [],
-    eventDate: moment(),
-    images: []
-  }
+  state = BASE_STATE
 
   onImageDrop = (files) => {
     const { images } = this.state;
     this.setState({
       images: [...images, ...files]
+    });
+  }
+
+  onImageRemove = imageId => {
+    this.setState({
+      images: this.state.images.filter(image => image.preview !== imageId)
     });
   }
 
@@ -48,8 +56,10 @@ export default class EventCreator extends Component {
                 quick_description: this.quickDescriptionTextArea.value,
                 full_description: this.fullDescriptionTextArea.value,
                 tag_ids: selectedTagIds,
-                event_date: eventDate
+                event_date: eventDate,
+                images
               }).then((e) => {
+                this.setState(BASE_STATE);
                 this.form.reset();
                 afterCreate(e);
               })
@@ -122,6 +132,7 @@ export default class EventCreator extends Component {
               files={images}
               maxFiles={6}
               mimeType={'image/*'}
+              onRemove={this.onImageRemove}
             />
 
             <div

@@ -9,6 +9,7 @@ class Event
   field :quick_description, type: String
   field :full_description, type: String
   field :event_date, type: Date
+  field :images, type: Hash, default: {}
 
   validates :title, presence: true
   validates :title, length: { minimum: 3, maximum: 200 }
