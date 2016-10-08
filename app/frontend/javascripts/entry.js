@@ -95,7 +95,7 @@ render(
 
         <Route path="profile" component={Profile} />
         <Route path="friends" component={FriendsIndex} />
-        <Redirect from='*' to='/users/me/categories' />
+        <Redirect from='*' to='/users/me/events' />
       </Route>
     </Router>
   </Provider>,

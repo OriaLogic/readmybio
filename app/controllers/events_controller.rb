@@ -22,7 +22,7 @@ class EventsController < ApplicationController
       end
 
       tags << matchingTag
-      matchingTag.idset_event
+      matchingTag.id
     end
 
     if event = current_user.events.create(e_params)

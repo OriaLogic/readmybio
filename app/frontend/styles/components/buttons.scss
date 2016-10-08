@@ -1,0 +1,9 @@
+.btn.btn-empty.btn-default {
+  background: none;
+  border: 1px solid $btn-default-border;
+  color: $btn-default-border;
+}
+
+.btn.btn-square {
+  border-radius: 0px;
+}

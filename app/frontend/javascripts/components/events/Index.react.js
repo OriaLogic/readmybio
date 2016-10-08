@@ -37,37 +37,40 @@ const EventsIndexComponent = ({
 
   // If not loading and eventsList is not empty
   return (
-    <div className='events-index'>
+    <div>
       <IndexNav/>
 
-      <div className='pull-right' style={{ paddingTop: 8 }}>
-        <IndexSearch />
-      </div>
-
       <div
-        style={{ position: 'relative' }}
-        className='events-list'>
-        <div className='row'>
-          {content}
-        </div>
-      </div>
+         className='events-index'>
+         <div style={{ textAlign: 'center', marginBottom: 30, marginTop: 20 }}>
+           <IndexSearch />
+         </div>
 
-      {
-        eventsKeys.length > 0 &&
-        <div className='footer'>
-          <span className='text-muted'>
-            Showing {Math.min(eventsKeys.length, showEventsNb)} of {eventsKeys.length} events.{' '}
-          </span>
-          {
-            (showEventsNb < eventsKeys.length) &&
-            <a
-              href='#'
-              onClick={e => { e.preventDefault(); showMoreEvents(displayedUserId) }}>
-              Show more
-            </a>
-          }
-        </div>
-      }
+         <div
+           style={{ position: 'relative' }}
+           className='events-list'>
+           <div className='row'>
+             {content}
+           </div>
+         </div>
+
+         {
+           eventsKeys.length > 0 &&
+           <div className='footer'>
+             <span className='text-muted'>
+               Showing {Math.min(eventsKeys.length, showEventsNb)} of {eventsKeys.length} events.{' '}
+             </span>
+             {
+               (showEventsNb < eventsKeys.length) &&
+               <a
+                 href='#'
+                 onClick={e => { e.preventDefault(); showMoreEvents(displayedUserId) }}>
+                 Show more
+               </a>
+             }
+           </div>
+         }
+      </div>
     </div>
   );
 }

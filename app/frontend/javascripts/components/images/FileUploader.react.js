@@ -14,7 +14,7 @@ export default class FileUploader extends Component {
 
   static defaultProps = {
     maxFiles: 6,
-    maxSize: 300000
+    maxSize: 500000
   }
 
   onOpenClick = () => {

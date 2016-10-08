@@ -16,7 +16,7 @@ const EventBoxImageShower = ({ event, category }) => {
         src={buildCloudinaryUrl(firstImageId, SCALED_280_210)}
         alt={firstImage.name}
         className={
-          'img-responsive ' +
+          'img-responsive img-thumbnail ' +
           generateCategoryColorClass(category ? category.color_code : 0)
         }
       />

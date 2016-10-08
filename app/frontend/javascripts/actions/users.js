@@ -19,7 +19,7 @@ export const fetchUser = () => dispatch => {
 }
 
 export const logoutUser = () => dispatch  => {
-  defaultFetch(LogoutUserPath(), { method: 'deshowMoreEventslete', noJSON: true })
+  defaultFetch(LogoutUserPath(), { method: 'delete', noJSON: true })
     .then(() => window.location.reload())
 }
 

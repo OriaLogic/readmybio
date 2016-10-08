@@ -6,15 +6,17 @@ import EventBoxTagShower from '../categories/EventBoxTagShower.react';
 import moment from 'moment';
 import { compressedFormat } from '../../constants/date';
 import { keys } from 'lodash';
+import { generateCategoryColorClass } from '../../helpers/Colors';
 
 const EventBox = ({ event: ev, canEdit, params, categories }) => {
   const { userId, categoryId } = params;
+  const firstCategory = (ev.tag_ids && ev.tag_ids.length) ? categories[ev.tag_ids[0]] : null
 
   return (
     <div className='col-md-3'>
-      <div className='event-box'>
+      <div className={'event-box ' + generateCategoryColorClass(firstCategory ? firstCategory.color_code : 0)}>
         <h5
-          className='title text-info'>
+          className='title'>
           {ev.title.capitalize()}
         </h5>
 
@@ -41,7 +43,7 @@ const EventBox = ({ event: ev, canEdit, params, categories }) => {
           }
         </div>
 
-        <EventBoxImageShower event={ev} category={ev.tag_ids && ev.tag_ids.length ? categories[ev.tag_ids[0]] : null } />
+        <EventBoxImageShower event={ev} category={firstCategory} />
 
         <div
           className='where-and-when clearfix'>

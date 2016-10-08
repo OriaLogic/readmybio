@@ -20,3 +20,28 @@
     }
   }
 }
+
+ul#user-bio-nav {
+  text-transform: uppercase;
+  > li + li { margin-left: 0px; }
+  li {
+    width: 50%;
+    text-align: center;
+
+    a {
+      h4 { font-size: 16px; }
+      color: $black;
+      border-radius: 0px;
+      &.active {
+        background-color: $light-background;
+        color: $black;
+      }
+
+      &:hover {
+        &.active { background-color: $light-background; }
+        background: none;
+        color: darken($black, 15%);
+      }
+    }
+  }
+}

@@ -22,12 +22,14 @@ const Index = ({ userId, categories, totalEventsCount }) => {
     <div>
       <IndexNav/>
 
-      <div
-        className='row'>
-        {
-          keys(categories).length &&
-          cats
-        }
+      <div className='categories-index'>
+        <div
+          className='row'>
+          {
+            keys(categories).length &&
+            cats
+          }
+        </div>
       </div>
 
     </div>

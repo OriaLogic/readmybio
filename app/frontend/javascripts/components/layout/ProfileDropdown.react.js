@@ -5,9 +5,6 @@ const ProfileDropdown = ({ currentUser, logout }) => (
 <NavbarDropdown
     externalLinkContent={(
       <span>
-        <i
-          className='glyphicon glyphicon-user'
-        />
         {' '}
         {currentUser && currentUser.email ? currentUser.email : 'Profile'}
         {' '}

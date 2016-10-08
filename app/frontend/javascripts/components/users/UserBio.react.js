@@ -31,8 +31,9 @@ const UserBioComponent = ({ displayedUser, nbEvents, isCurrentUser, children }) 
               {
                 isCurrentUser &&
                 <Link
-                  to={NewUserEventPath()}>
-                  Create event
+                  to={NewUserEventPath()}
+                  className='btn btn-empty btn-default btn-square btn-lg'>
+                  NEW EVENT
                 </Link>
               }
             </div>

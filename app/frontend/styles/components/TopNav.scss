@@ -1,0 +1,31 @@
+$darkened: darken($black, 15%);
+
+#top-nav.navbar-default {
+  margin-left: 10px;
+  margin-right: 10px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid $black;
+  color: $black;
+  font-weight: 600;
+  position: relative;
+  padding-top: 10px;
+
+  a {
+    text-decoration: none;
+    color: $black;
+    &:hover { color: $darkened; }
+  }
+
+  .navbar-brand {
+    color: $black;
+    &:hover { color: $darkened; }
+  }
+
+  .navbar-nav {
+    > li > a {
+      color: $black;
+      &:hover { color: $darkened; }
+    }
+  }
+}

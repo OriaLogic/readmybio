@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  color: $black;
 }
 
 #root, #app-main-container{
@@ -7,7 +8,7 @@ html, body {
 }
 
 #app-main-container {
-  padding-top: 70px;
+  padding-top: 10px;
   padding-bottom: 20px;
 }
 
@@ -30,4 +31,18 @@ html, body {
     position: fixed;
     left: calc(50% - 25px);
   }
+}
+
+.bio-section {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.events-index, .categories-index {
+  padding-top: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: $light-background;
+  min-height: 800px;
+  position: relative;
 }

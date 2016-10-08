@@ -5,7 +5,7 @@ const EventBoxTagShower = ({ category }) => {
   return (
     <span
       className={
-        'tag-shower ' +
+        'badge badge-square ' +
         generateCategoryColorClass(category ? category.color_code : 0)
       }
     >
