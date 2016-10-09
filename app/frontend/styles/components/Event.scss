@@ -54,7 +54,15 @@
 }
 
 .event-creator {
+  background-color: $light-background;
+  padding-top: 40px;
   form { position: relative; }
+  h4 {
+    text-align: center;
+    margin-top: 0px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
 
   .date-picker-container {
     display: block;

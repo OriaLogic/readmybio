@@ -5,4 +5,6 @@ const CATEGORY_COLOR_CLASSES = {
   3: 'category-color-4',
 }
 
+export const NB_CATEGORY_COLORS = 4;
+
 export const generateCategoryColorClass = colorCode => CATEGORY_COLOR_CLASSES[colorCode];

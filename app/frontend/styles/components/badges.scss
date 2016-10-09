@@ -2,6 +2,10 @@
   border-radius: 2px;
 }
 
+.badge.badge-fully-square {
+  border-radius: 0px;
+}
+
 .badge.category-color-1 {
   background-color: $category-color-1;
   color: white;

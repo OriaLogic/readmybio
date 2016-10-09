@@ -1,3 +1,5 @@
+NB_CATEGORY_COLORS = 4
+
 class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -15,6 +17,6 @@ class Tag
   before_create :generate_random_color
 
   def generate_random_color
-    self.color_code = rand(0...4)
+    self.color_code = rand(0...NB_CATEGORY_COLORS)
   end
 end

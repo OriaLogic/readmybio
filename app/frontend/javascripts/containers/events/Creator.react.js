@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { createEvent } from '../../actions/events';
 import { connect } from 'react-redux';
 import { syncedHistory } from '../../store';
-import { UserEventPath } from '../../helpers/Routes';
+import { UserEventPath, UserEventsPath } from '../../helpers/Routes';
 import TagFinder from '../tags/FormFinder.react';
 import { filter } from 'lodash';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import FileUploader from '../../components/images/FileUploader.react';
+import { Link } from 'react-router';
 
 const BASE_STATE = {
   selectedTagIds: [],
@@ -44,7 +45,7 @@ export default class EventCreator extends Component {
     return (
       <div className='row event-creator'>
         <div className='col-md-8 col-md-offset-2'>
-          <h3>{`Create ${eventsCount === 0 ? 'your first' : ''} event`}</h3>
+          <h4>{`Create ${eventsCount === 0 ? 'your first' : ''} event`}</h4>
           <form
             ref={node => {
               this.form = node;
@@ -84,7 +85,7 @@ export default class EventCreator extends Component {
               style={{ display: 'inline-block' }}
               className="form-group date-picker-container">
               <label>
-                Where
+                When
               </label>
               <DatePicker
                 selected={eventDate}
@@ -137,6 +138,13 @@ export default class EventCreator extends Component {
 
             <div
               className='clearfix'>
+              <Link
+                className='pull-left'
+                to={UserEventsPath()}>
+                <i className='glyphicon glyphicon-arrow-left' style={{ marginRight: 5 }}/>
+                Cancel
+              </Link>
+
               <button
                 type="submit"
                 className="btn btn-default pull-right">

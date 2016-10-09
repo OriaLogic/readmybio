@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { keys } from 'lodash';
+import { NB_CATEGORY_COLORS, generateCategoryColorClass } from '../../helpers/Colors';
+import { getRandomInt } from '../../helpers/Number';
 
 class FormFinder extends Component {
   static propTypes = {
@@ -11,7 +13,8 @@ class FormFinder extends Component {
   }
 
   state = {
-    inputText: ''
+    inputText: '',
+    focused: false
   }
 
   componentDidMount () {
@@ -47,11 +50,8 @@ class FormFinder extends Component {
 
   render () {
     const { categories, selectedTagIds, onChange } = this.props;
-    const shouldOpenHintDropdown = (
-      this.computePossibleCategories().length > 0 &&
-      this.state.inputText &&
-      this.state.inputText.trim().length > 0
-    );
+    const { focused } = this.state;
+    const shouldOpenHintDropdown = (focused && this.computePossibleCategories().length > 0);
 
     return (
       <div
@@ -70,7 +70,14 @@ class FormFinder extends Component {
             className={'dropdown ' + (shouldOpenHintDropdown ? 'open' : '')}>
             <input
               className='form-control'
-              style={{ width: 150 }}
+              onFocus={() => this.setState({ focused: true })}
+              onBlur={
+                () => setTimeout(() => {
+                  this.setState({ focused: false })
+                }, 100)
+              }
+              ref={node => this.input = node}
+              style={{ width: 100 }}
               value={this.state.inputText}
               onChange={
                 e => this.setState({
@@ -86,7 +93,7 @@ class FormFinder extends Component {
           </div>
         </div>
       </div>
-    );
+    );generateCategoryColorClass(firstCategory ? firstCategory.color_code : 0)
   }
 
   computePossibleCategories = () => {
@@ -110,12 +117,14 @@ class FormFinder extends Component {
           key={tagId}>
           <a
             href="#"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               onChange(tagId);
               this.setState({
                 inputText: ''
               });
             }}>
+            <span className={generateCategoryColorClass(categories[tagId].color_code)}></span>
             {categories[tagId].name}
           </a>
         </li>
@@ -132,9 +141,16 @@ class FormFinder extends Component {
           selectedTagIds.map((tagId) => {
             return (
               <li
-                key={tagId}
-                onClick={() => this.props.removeTag(tagId)}>
-                {categories[tagId] ? categories[tagId].name : tagId}
+                key={tagId}>
+                <a href='#' onClick={(e) => { e.preventDefault(); this.props.removeTag(tagId) }}>
+                  <span
+                    className={
+                      'badge badge-square badge-lg ' +
+                      (generateCategoryColorClass(categories[tagId] ? categories[tagId].color_code : getRandomInt(1, NB_CATEGORY_COLORS)))
+                    }>
+                    {categories[tagId] ? categories[tagId].name.capitalize() : tagId.capitalize()}
+                  </span>
+                </a>
               </li>
             );
           })

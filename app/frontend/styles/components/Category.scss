@@ -97,17 +97,44 @@
 }
 
 .tag-finder {
+  input#tag-finder {
+  }
+
   .selected-tags {
     display: inline-block;
     vertical-align: middle;
     li {
-      margin-right: 20px;
+      margin-right: 5px;
+      a { padding: 0px;  }
+      span.badge {
+        margin-left: 0px;
+        border-radius: 0px;
+        padding: 10px 13px;
+        min-width: 75px;
+      }
+
+      &:last-child {
+        margin-right: 10px;
+      }
     }
   }
 
   .dropdown {
     vertical-align: middle;
-    .possible-tags {}
+    .possible-tags {
+      li > a > span {
+        border-radius: 50%;
+        &.category-color-1 { background-color: $category-color-1; }
+        &.category-color-2 { background-color: $category-color-2; }
+        &.category-color-3 { background-color: $category-color-3; }
+        &.category-color-4 { background-color: $category-color-4; }
+        height: 10px;
+        width: 10px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+    }
   }
 }
 
