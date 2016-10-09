@@ -1,36 +1,84 @@
-$light-brand-primary: lighten($brand-primary, 5%);
-
 .category {
-  > div.category-container {
-    background-color: $brand-primary;
-    border-radius: 4px;
+  padding: 3px;
+
+  > a:hover { text-decoration: none; }
+
+  div.category-container {
     padding: 10px;
     color: white;
-    min-height: 70px;
-    margin-bottom: 10px;
+    min-height: 130px;
+    text-align: center;
 
-    h4 {
-      margin-top: 0;
-      text-align: center;
+    .title {
+      margin-top: 15px;
       text-transform: capitalize;
       margin-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
     }
 
     p {
       margin-bottom: 0px;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .seperator {
+      width: 40px;
+      height: 2px;
+      margin: 18px auto 27px auto;
+      background-color: white;
     }
   }
 
   &:hover {
     text-decoration: none;
-    > div.category-container {
-      background-color: $light-brand-primary;
+  }
+
+  &.category-color-1 {
+    div.category-container {
+      background-color: $category-color-1;
     }
 
-    &#all {
-      > div.category-container {
-        border: 2px solid $light-brand-primary;
-        color: $light-brand-primary;
+    &:hover {
+      div.category-container {
+        background-color: $category-color-1-light;
+      }
+    }
+  }
+
+  &.category-color-2 {
+    div.category-container {
+      background-color: $category-color-2;
+    }
+
+    &:hover {
+      div.category-container {
+        background-color: $category-color-2-light;
+      }
+    }
+  }
+
+  &.category-color-3 {
+    div.category-container {
+      background-color: $category-color-3;
+    }
+
+    &:hover {
+      div.category-container {
+        background-color: $category-color-3-light;
+      }
+    }
+  }
+
+  &.category-color-4 {
+    div.category-container {
+      background-color: $category-color-4;
+    }
+
+    &:hover {
+      div.category-container {
+        background-color: $category-color-4-light;
       }
     }
   }
@@ -60,5 +108,12 @@ $light-brand-primary: lighten($brand-primary, 5%);
   .dropdown {
     vertical-align: middle;
     .possible-tags {}
+  }
+}
+
+.categories-index {
+  .categories-list {
+    max-width: 1018px;
+    margin: 0px auto;
   }
 }

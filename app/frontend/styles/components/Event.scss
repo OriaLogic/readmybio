@@ -69,7 +69,7 @@
 }
 
 .events-index {
-  padding-bottom: 30px;
+  padding-bottom: 50px;
 
   .form-inline {
     .react-datepicker__input-container > input {
@@ -79,38 +79,35 @@
   }
 
   .events-list {
+    padding-bottom: 20px;
     margin-top: 20px;
     max-width: 1018px;
     margin: 0px auto;
 
     .event-box {
-      margin-bottom: 30px;
-      background: none;
+      margin-bottom: 20px;
+      // background-color: rgba(0, 0, 0, 0.03);
       position: relative;
       padding: 10px;
-      border-radius: 3px;
-      max-height: 400px;
-      height: 400px;
-      overflow-y: auto;
 
       &.category-color-1 .title {
         color: $category-color-1;
-        border-bottom: 6px solid $category-color-1;
+        border-bottom: 4px solid $category-color-1;
       }
 
       &.category-color-2 .title {
         color: $category-color-2;
-        border-bottom: 6px solid $category-color-2;
+        border-bottom: 4px solid $category-color-2;
       }
 
       &.category-color-3 .title {
         color: $category-color-3;
-        border-bottom: 6px solid $category-color-3;
+        border-bottom: 4px solid $category-color-3;
       }
 
       &.category-color-4 .title {
         color: $category-color-4;
-        border-bottom: 6px solid $category-color-4;
+        border-bottom: 4px solid $category-color-4;
       }
 
       .event-box-container {
@@ -119,12 +116,16 @@
 
       .actions {
         position: absolute;
-        top: 48px;
-        right: 17px;
-        font-size: 10px;
+        top: 0px;
+        right: 0px;
+        padding: 8px;
+        background-color: rgba(0, 0, 0, 0.2);
         display: none;
-        opacity: 0.7;
-        a { color: $black; }
+        font-size: 10px;
+        a {
+          color: black;
+          opacity: 0.7;
+        }
       }
 
       &:hover .actions { display: block; }
@@ -203,15 +204,12 @@
 
       .title {
         margin: 0px;
-        margin-bottom: 10px;
-        width: 'calc(100% - 55px)';
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        margin-bottom: 7px;
+        padding-bottom: 4px;
       }
 
       .quick-description {
-
+        font-size: 13px;
       }
     }
   }

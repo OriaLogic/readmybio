@@ -9,9 +9,7 @@ const Index = ({ userId, categories, totalEventsCount }) => {
 
     return (
       <Category
-        name={cat.name}
-        id={categoryId}
-        eventsCount={cat.event_ids.length}
+        category={cat}
         key={categoryId}
         userId={userId}
       />
@@ -23,12 +21,14 @@ const Index = ({ userId, categories, totalEventsCount }) => {
       <IndexNav/>
 
       <div className='categories-index'>
-        <div
-          className='row'>
-          {
-            keys(categories).length &&
-            cats
-          }
+        <div className='categories-list'>
+          <div
+            className='row'>
+            {
+              keys(categories).length &&
+              cats
+            }
+          </div>
         </div>
       </div>
 

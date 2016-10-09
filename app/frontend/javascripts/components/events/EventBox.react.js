@@ -13,13 +13,14 @@ const EventBox = ({ event: ev, canEdit, params, categories }) => {
   const firstCategory = (ev.tag_ids && ev.tag_ids.length) ? categories[ev.tag_ids[0]] : null
 
   return (
-    <div className='col-md-3'>
-      <div className={'event-box ' + generateCategoryColorClass(firstCategory ? firstCategory.color_code : 0)}>
-        <h5
-          className='title'>
-          {ev.title.capitalize()}
-        </h5>
+    <div className={'event-box ' + generateCategoryColorClass(firstCategory ? firstCategory.color_code : 0)}>
+      <h5
+        className='title'>
+        {ev.title.capitalize()}
+      </h5>
 
+      <div
+        style={{ position: 'relative' }}>
         <div className='actions'>
           <Link
             to={UserEventPath(userId, ev.id)}
@@ -44,32 +45,32 @@ const EventBox = ({ event: ev, canEdit, params, categories }) => {
         </div>
 
         <EventBoxImageShower event={ev} category={firstCategory} />
-
-        <div
-          className='where-and-when clearfix'>
-          <span className='when pull-right'>
-            {moment(ev.event_date).format(compressedFormat)}
-          </span>
-        </div>
-
-        <div className='tags'>
-          <ul>
-            {
-              ev.tag_ids.map(tagId => {
-                return (
-                  <li
-                    key={tagId}>
-                    <EventBoxTagShower category={categories[tagId]} />
-                  </li>
-
-                )
-              })
-            }
-          </ul>
-        </div>
-
-        <p className='quick-description'>{ev.quick_description}</p>
       </div>
+
+      <div
+        className='where-and-when clearfix'>
+        <span className='when pull-right'>
+          {moment(ev.event_date).format(compressedFormat)}
+        </span>
+      </div>
+
+      <div className='tags'>
+        <ul>
+          {
+            ev.tag_ids.map(tagId => {
+              return (
+                <li
+                  key={tagId}>
+                  <EventBoxTagShower category={categories[tagId]} />
+                </li>
+
+              )
+            })
+          }
+        </ul>
+      </div>
+
+      <p className='quick-description'>{ev.quick_description}</p>
     </div>
   );
 }

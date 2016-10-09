@@ -1,6 +1,14 @@
 $category-color-1: $brand-success;
+$category-color-1-light: lighten($category-color-1, 5%);
+
 $category-color-2: $brand-info;
+$category-color-2-light: lighten($category-color-2, 5%);
+
 $category-color-3: $brand-danger;
+$category-color-3-light: lighten($category-color-3, 5%);
+
 $category-color-4: $brand-warning;
+$category-color-4-light: lighten($category-color-4, 5%);
+
 $black: rgb(76, 76, 76);
 $light-background: rgb(245, 245, 245);

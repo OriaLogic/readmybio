@@ -4,7 +4,7 @@ import { NewUserEventPath } from '../../helpers/Routes';
 import EventBox from './EventBox.react';
 import EventLoadingPlaceholder from './EventLoadingPlaceholder.react';
 import NoEventPlaceholder from './NoEventPlaceholder.react';
-import { keys } from 'lodash';
+import { keys, forEach } from 'lodash';
 import IndexNav from './IndexNav.react';
 import IndexSearch from '../../containers/events/IndexSearch.react';
 
@@ -19,10 +19,12 @@ const EventsIndexComponent = ({
   } else if (eventsKeys.length === 0) {
     content = <NoEventPlaceholder />
   } else {
-    content = eventsKeys.slice(0, showEventsNb).map(eventId => {
-      const e = events[eventId];
+    let div1Content = [], div2Content = [], div3Content = [], div4Content = [], i = 0;
 
-      return (
+
+    forEach(eventsKeys.slice(0, showEventsNb), eventId => {
+      const e = events[eventId];
+      let eventBox = (
         <EventBox
           event={e}
           key={e.id}
@@ -31,7 +33,25 @@ const EventsIndexComponent = ({
           categories={categories}
         />
       );
+
+      switch (i % 4) {
+        case 0: div1Content.push(eventBox); break;
+        case 1: div2Content.push(eventBox); break;
+        case 2: div3Content.push(eventBox); break;
+        case 3: div4Content.push(eventBox); break;
+      }
+
+      i ++;
     });
+
+    content = (
+      <div className='row'>
+        <div className='col-md-3'>{div1Content}</div>
+        <div className='col-md-3'>{div2Content}</div>
+        <div className='col-md-3'>{div3Content}</div>
+        <div className='col-md-3'>{div4Content}</div>
+      </div>
+    );
   }
 
 
@@ -42,16 +62,14 @@ const EventsIndexComponent = ({
 
       <div
          className='events-index'>
-         <div style={{ textAlign: 'center', marginBottom: 30, marginTop: 20 }}>
+         <div style={{ textAlign: 'center', marginBottom: 30 }}>
            <IndexSearch />
          </div>
 
          <div
            style={{ position: 'relative' }}
            className='events-list'>
-           <div className='row'>
-             {content}
-           </div>
+           {content}
          </div>
 
          {
