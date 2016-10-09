@@ -6,7 +6,7 @@ import EventLoadingPlaceholder from './EventLoadingPlaceholder.react';
 import NoEventPlaceholder from './NoEventPlaceholder.react';
 import { keys, forEach } from 'lodash';
 import IndexNav from './IndexNav.react';
-import IndexSearch from '../../containers/events/IndexSearch.react';
+import IndexSearch from '../../containers/events/IndexSearchNice.react';
 
 const EventsIndexComponent = ({
   filter, categories, canEdit, events, loading, params, showEventsNb, displayedUserId,
@@ -62,32 +62,34 @@ const EventsIndexComponent = ({
 
       <div
          className='events-index'>
-         <div style={{ textAlign: 'center', marginBottom: 30 }}>
-           <IndexSearch />
-         </div>
-
-         <div
-           style={{ position: 'relative' }}
-           className='events-list'>
-           {content}
-         </div>
-
-         {
-           eventsKeys.length > 0 &&
-           <div className='footer'>
-             <span className='text-muted'>
-               Showing {Math.min(eventsKeys.length, showEventsNb)} of {eventsKeys.length} events.{' '}
-             </span>
-             {
-               (showEventsNb < eventsKeys.length) &&
-               <a
-                 href='#'
-                 onClick={e => { e.preventDefault(); showMoreEvents(displayedUserId) }}>
-                 Show more
-               </a>
-             }
+         <div>
+           <div style={{ textAlign: 'center', marginBottom: 30 }}>
+             <IndexSearch />
            </div>
-         }
+
+           <div
+             style={{ position: 'relative' }}
+             className='events-list'>
+             {content}
+           </div>
+
+           {
+             eventsKeys.length > 0 &&
+             <div className='footer'>
+               <span className='text-muted'>
+                 Showing {Math.min(eventsKeys.length, showEventsNb)} of {eventsKeys.length} events.{' '}
+               </span>
+               {
+                 (showEventsNb < eventsKeys.length) &&
+                 <a
+                   href='#'
+                   onClick={e => { e.preventDefault(); showMoreEvents(displayedUserId) }}>
+                   Show more
+                 </a>
+               }
+             </div>
+           }
+         </div>
       </div>
     </div>
   );

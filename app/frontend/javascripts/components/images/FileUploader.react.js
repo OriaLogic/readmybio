@@ -26,12 +26,29 @@ export default class FileUploader extends Component {
 
     return (
       <div
-        style={{ display: 'inline-block' }}
         className="form-group image-uploader">
         <label>
           Images
+          {
+            files.length < maxFiles ?
+            <button
+              className='file-add-button btn btn-success btn-empty btn-square'
+              onClick={() => this.dropzone.open() }
+              style={{ marginLeft: 10 }}
+              type='button'>
+              <i className='glyphicon glyphicon-plus'/>
+            </button> :
+            <div style={{ display: 'inline-block' }} className='max-files-placeholder'>
+              Limit reached
+            </div>
+          }
         </label>
-        <div>
+        <div
+          className='images-container'>
+          {
+            files.length === 0 &&
+            <div className='no-image-placeholder'>NO IMAGE</div>
+          }
           {
             files.map(file => {
               return (
@@ -44,21 +61,18 @@ export default class FileUploader extends Component {
             })
           }
 
-          {
-            files.length < maxFiles ?
-              <Dropzone
-                ref="dropzone"
-                onDrop={onDrop}
-                className='image-dropzone'
-                activeClassName='active-image-dropzone'
-                maxSize={300000}
-                accept={mimeType}>
-                <div>Drop image or click</div>
-              </Dropzone> :
-              <div className='max-files-placeholder'>
-                Limit reached
-              </div>
-          }
+          <Dropzone
+            ref={ node => this.dropzone = node }
+            onDrop={(files) => {
+              if (files.length < maxFiles) {
+                onDrop(files);
+              }
+            }}
+            className='image-dropzone'
+            activeClassName='active-image-dropzone'
+            maxSize={300000}
+            accept={mimeType}>
+          </Dropzone>
         </div>
       </div>
     );

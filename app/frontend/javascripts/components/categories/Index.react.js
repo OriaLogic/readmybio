@@ -3,7 +3,7 @@ import Category, { ALL_CATEGORY_ID } from './Category.react';
 import { forEach, keys } from 'lodash';
 import IndexNav from '../events/IndexNav.react';
 
-const Index = ({ userId, categories, totalEventsCount }) => {
+const Index = ({ userId, isCurrentUser, categories, totalEventsCount, setFilterTag }) => {
   const cats = keys(categories).map(categoryId => {
     let cat = categories[categoryId];
 
@@ -12,6 +12,8 @@ const Index = ({ userId, categories, totalEventsCount }) => {
         category={cat}
         key={categoryId}
         userId={userId}
+        setFilterTag={setFilterTag}
+        isCurrentUser={isCurrentUser}
       />
     );
   })

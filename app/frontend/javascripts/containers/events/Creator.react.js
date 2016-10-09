@@ -140,15 +140,16 @@ export default class EventCreator extends Component {
               className='clearfix'>
               <Link
                 className='pull-left'
-                to={UserEventsPath()}>
+                to={UserEventsPath('me')}
+                style={{ padding: '6px 12px', paddingLeft: 0 }}>
                 <i className='glyphicon glyphicon-arrow-left' style={{ marginRight: 5 }}/>
                 Cancel
               </Link>
 
               <button
                 type="submit"
-                className="btn btn-default pull-right">
-                Submit
+                className="btn btn-success btn-square btn-empty pull-right">
+                Create event
               </button>
             </div>
           </form>

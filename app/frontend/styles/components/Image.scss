@@ -1,29 +1,35 @@
 .image-uploader {
-  .image-container {
-    max-width: 100px;
-    max-height: 100px;
-    display: inline-block;
-    margin-right: 20px;
-    vertical-align: top;
+  .max-files-placeholder {
+    font-weight: normal;
+    margin-left: 10px;
+    @extend .text-muted;
+  }
+
+  .images-container {
+    text-align: center;
+    min-height: 140px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.03);
+
+    .image-container {
+      max-width: 100px;
+      max-height: 100px;
+      display: inline-block;
+      margin-right: 20px;
+      vertical-align: top;
+    }
+
+    .no-image-placeholder {
+      padding: 40px;
+      font-weight: bold;
+      @extend .text-muted;
+      opacity: 0.7;
+    }
   }
 }
 
 .image-dropzone {
-  background-color: $gray-light;
-  color: white;
-  width: 100px;
-  height: 100px;
-  font-size: 14px;
-  padding: 30px 10px;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 2px;
-  display: inline-block;
-  vertical-align: top;
-
-  &:hover {
-    background-color: lighten($gray-light, 10%);
-  }
+  display: none;
 }
 
 .active-image-dropzone {
@@ -47,4 +53,8 @@
   }
 
   &:hover .remove-span { display: block; }
+}
+
+.file-add-button {
+  padding: 2px 9px;
 }

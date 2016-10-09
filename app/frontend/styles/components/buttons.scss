@@ -1,7 +1,23 @@
-.btn.btn-empty.btn-default {
+.btn.btn-empty.btn-default, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus {
   background: none;
   border: 1px solid $btn-default-border;
   color: $btn-default-border;
+
+  &:hover {
+    border-color: darken($btn-default-border, 10%);
+    color: darken($btn-default-border, 10%);
+  }
+}
+
+.btn.btn-empty.btn-success {
+  background: none;
+  border: 1px solid $btn-success-border;
+  color: $btn-success-border;
+
+  &:hover {
+    border-color: darken($btn-success-border, 10%);
+    color: darken($btn-success-border, 10%);
+  }
 }
 
 .btn.btn-square {

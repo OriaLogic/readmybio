@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Dropdown from '../dropdowns/Dropdown.react';
 import { keys } from 'lodash';
+import { generateCategoryColorClass } from '../../helpers/Colors';
 
 export default class TagSelector extends Component {
   static propTypes = {
@@ -10,37 +11,64 @@ export default class TagSelector extends Component {
   }
 
   state = {
-    searchedTagName: ''
+    searchedTagName: '',
+    focused: false
   }
 
   render () {
     const { categories, selectedTagId, onChange } = this.props;
-    const dropdownText = (selectedTagId ? categories[selectedTagId].name : 'All') + ' ';
+    let dropdownText;
 
-    return (
-      <Dropdown
-        closeAfterClick={true}
-        externalLinkContent={(
-          <span>
-            {dropdownText}
-            <span className="caret" />
+    if (selectedTagId) {
+      dropdownText = (
+        <span>
+          <span className={'pastille ' + generateCategoryColorClass(categories[selectedTagId].color_code)} />
+          <span style={{ verticalAlign: 'middle' }}>
+            {categories[selectedTagId].name.capitalize() + ' '}
           </span>
-        )}
-        dropdownLinkClass={'btn btn-default'}>
-        {
-          keys(categories).map((tagId) => {
-            return (
-              <li key={tagId}>
-                <a
-                  href="#"
-                  onClick={() => onChange(tagId)}>
-                  {categories[tagId].name}
-                </a>
-              </li>
-            )
-          })
-        }
-      </Dropdown>
+        </span>
+      );
+    } else {
+      dropdownText = <span>{'All '}</span>;
+    }
+    return (
+      <div
+        className='tag-selector'
+        style={{ display: 'inline-block' }}>
+        <Dropdown
+          closeAfterClick={true}
+          externalLinkContent={(
+            <span>
+              {dropdownText}
+              <span className="caret" />
+            </span>
+          )}
+          dropdownLinkClass={'btn btn-default btn-empty btn-square'}>
+          <li key={'no-tag'}>
+            <a
+              href="#"
+              onClick={() => onChange(null)}>
+              <i className='glyphicon glyphicon-remove' style={{ fontSize: 10, marginRight: 5 }} />
+              All
+            </a>
+          </li>
+
+          {
+            keys(categories).map((tagId) => {
+              return (
+                <li key={tagId}>
+                  <a
+                    href="#"
+                    onClick={() => onChange(tagId)}>
+                    <span className={'pastille ' + generateCategoryColorClass(categories[tagId].color_code)} />
+                    {categories[tagId].name.capitalize()}
+                  </a>
+                </li>
+              )
+            })
+          }
+        </Dropdown>
+      </div>
     );
   }
 }

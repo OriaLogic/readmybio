@@ -1,0 +1,7 @@
+a {
+  color: $btn-default-border;
+  &:hover {
+    color: darken($btn-default-border, 10%);
+    text-decoration: none;
+  }
+}

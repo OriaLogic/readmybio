@@ -124,7 +124,7 @@ class FormFinder extends Component {
                 inputText: ''
               });
             }}>
-            <span className={generateCategoryColorClass(categories[tagId].color_code)}></span>
+            <span className={generateCategoryColorClass(categories[tagId].color_code)} />
             {categories[tagId].name}
           </a>
         </li>
@@ -146,7 +146,7 @@ class FormFinder extends Component {
                   <span
                     className={
                       'badge badge-square badge-lg ' +
-                      (generateCategoryColorClass(categories[tagId] ? categories[tagId].color_code : getRandomInt(1, NB_CATEGORY_COLORS)))
+                      (generateCategoryColorClass(categories[tagId] ? categories[tagId].color_code : -1))
                     }>
                     {categories[tagId] ? categories[tagId].name.capitalize() : tagId.capitalize()}
                   </span>
