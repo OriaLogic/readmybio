@@ -5,7 +5,7 @@ const WIDTH = 'width';
 
 export default class GoodSizeImage extends Component {
   static propTypes = {
-    file: PropTypes.object.isRequired,
+    imageSrc: PropTypes.string.isRequired,
     maxWidth: PropTypes.number.isRequired,
     maxHeight: PropTypes.number.isRequired
   }
@@ -24,13 +24,14 @@ export default class GoodSizeImage extends Component {
   }
 
   render () {
-    const { file, maxWidth, maxHeight } = this.props;
+    const { imageSrc, maxWidth, maxHeight } = this.props;
     const { loaded } = this.state;
 
     return (
       <img
         ref={node => this.image = node}
-        src={file.preview}
+        src={imageSrc}
+        className='img-thumbnail'
         onLoad={this.handleImageLoaded}
         style={{
           display: (loaded ? 'block' : 'none'),

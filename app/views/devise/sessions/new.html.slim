@@ -1,4 +1,6 @@
-h2 Log in
+= render partial: "/devise/shared/logo" 
+
+h3 Login
 
 .form-container
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
@@ -16,7 +18,7 @@ h2 Log in
         = f.label :remember_me, style: "padding-left: 0px;"
     
     .clearfix
-      button type="submit" class="btn btn-success btn-lg pull-right" Log in
+      button type="submit" class="btn btn-success btn-square btn-empty btn-lg pull-right" Log in
   
 .footer
   - if devise_mapping.registerable? && controller_name != 'registrations'

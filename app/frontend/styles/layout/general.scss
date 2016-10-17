@@ -3,8 +3,12 @@ html, body {
   color: $black;
 }
 
-#root, #app-main-container{
+#root {
   height: 100%;
+}
+
+#app-main-container {
+  height: calc(100% - 81px);
 }
 
 #app-main-container {

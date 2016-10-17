@@ -10,7 +10,7 @@ const RemovableImage = ({ onRemove, file }) => {
           <i className='glyphicon glyphicon-remove'/>
         </a>
       </span>
-      <GoodSizeImage file={file} maxWidth={100} maxHeight={100} />
+      <GoodSizeImage imageSrc={file.preview} maxWidth={100} maxHeight={100} />
     </div>
   )
 }

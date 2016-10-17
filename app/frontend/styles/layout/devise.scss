@@ -1,20 +1,20 @@
 #devise-container {
   height: 100%;
-  color: white;
-  background-color: $brand-primary;
-  padding-top: 100px;
+  color: $black;
+  background-color: $gray-lighter;
+  padding-top: 10px;
 
   h2, h3 {
     text-align: center;
     margin-top: 0px;
     margin-bottom: 30px;
+    color: $brand-danger;
   }
 
   .form-container {
     width: 500px;
     margin: 0 auto;
     padding: 30px;
-    background: $white;
     text-align: left;
     border-radius: 6px;
     color: $text-color;
@@ -23,6 +23,32 @@
   .footer {
     text-align: center;
     margin-top: 20px;
-    a { color: $white; }
+    a {
+      color: $black;
+      &:hover { text-decoration: underline; }
+      font-weight: 600;
+    }
+  }
+
+  .logo-container {
+    text-align: center;
+    width: 100px;
+    margin: 0px auto;
+    background: none;
+    margin-bottom: 90px;
+    position: relative;
+
+    .logo {
+      background-color: $gray-lighter;
+      position: relative;
+    }
+
+    .logo-stroke {
+      position: absolute;
+      width: 200px;
+      top: 47px;
+      left: -50px;
+      border-bottom: 1px solid $black;
+    }
   }
 }

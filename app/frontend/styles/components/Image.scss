@@ -58,3 +58,15 @@
 .file-add-button {
   padding: 2px 9px;
 }
+
+section.image-gallery {
+  .image-gallery-bullets {
+    background: $black;
+    bottom: 0px;
+    z-index: 3;
+    padding: 10px;
+    padding-bottom: 20px;
+    margin: 0px;
+    width: 100%;
+  }
+}

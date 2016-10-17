@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { keys } from 'lodash';
 import { NB_CATEGORY_COLORS, generateCategoryColorClass } from '../../helpers/Colors';
-import { getRandomInt } from '../../helpers/Number';
 
 class FormFinder extends Component {
   static propTypes = {

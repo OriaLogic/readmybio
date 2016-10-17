@@ -22,6 +22,10 @@ const EventBoxImageShower = ({ event, category }) => {
       />
     );
   } else {
+    // <span className='no-image-placeholder'>
+    //   No image
+    // </span>
+
     return (
       <div
         className={
@@ -29,9 +33,6 @@ const EventBoxImageShower = ({ event, category }) => {
           generateCategoryColorClass(category ? category.color_code : 0)
         }
       >
-        <span className='no-image-placeholder'>
-          No image
-        </span>
       </div>
     );
   }

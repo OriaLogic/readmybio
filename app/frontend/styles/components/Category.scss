@@ -101,22 +101,7 @@
   }
 
   .selected-tags {
-    display: inline-block;
-    vertical-align: middle;
-    li {
-      margin-right: 5px;
-      a { padding: 0px;  }
-      span.badge {
-        margin-left: 0px;
-        border-radius: 0px;
-        padding: 10px 13px;
-        min-width: 75px;
-      }
-
-      &:last-child {
-        margin-right: 10px;
-      }
-    }
+    @extend .big-tags-list;
   }
 
   .dropdown {
@@ -157,5 +142,24 @@
     display: inline-block;
     vertical-align: middle;
     margin-right: 5px;
+  }
+}
+
+.big-tags-list {
+  display: inline-block;
+  vertical-align: middle;
+  li {
+    margin-right: 5px;
+    a { padding: 0px;  }
+    span.badge {
+      margin-left: 0px;
+      border-radius: 0px;
+      padding: 10px 13px;
+      min-width: 75px;
+    }
+
+    &:last-child {
+      margin-right: 10px;
+    }
   }
 }
