@@ -85,14 +85,31 @@ export const updateEvent = (userId, eventId, eventParams) => dispatch => {
     userId
   });
 
+  let e, t;
   return defaultPatch(UpdateEventJSONPath(userId, eventId), {
     body: JSON.stringify({ event: eventParams })
-  }).then(e => dispatch({
-      type: UPDATE_EVENT_SUCCESS,
-      event: e,
-      eventId,
-      userId
-    }));
+  }).then(({ event, tags }) => {
+    e = event;
+    t = tags;
+
+    // let data = new FormData();
+    // forEach(e.images, image => data.append(`images_${image.name}`, image));
+    // return defaultPost(CreateEventImagesJSONPath(event.id), {
+    //   body: data,
+    //   headers: {}
+    // });
+
+    return event;
+  }).then(event => {
+      dispatch({
+        type: UPDATE_EVENT_SUCCESS,
+        event,
+        userId,
+        categories: t
+      });
+
+      return event;
+  });
 }
 
 export const setFilter = (userId, value, name) => {

@@ -10,7 +10,7 @@ const initialState = undefined;
 
 const event = (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_EVENT_SUCCESS:
+    case CREATE_EVENT_SUCCESS, UPDATE_EVENT_SUCCESS:
       return {
         ...action.event,
         fullFetch: true

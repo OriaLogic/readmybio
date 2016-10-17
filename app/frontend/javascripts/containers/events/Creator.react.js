@@ -9,6 +9,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import FileUploader from '../../components/images/FileUploader.react';
 import { Link } from 'react-router';
+import { compressedFormat as dateFormat } from '../../constants/date';
 
 const BASE_STATE = {
   selectedTagIds: [],
@@ -88,6 +89,7 @@ export default class EventCreator extends Component {
                 When
               </label>
               <DatePicker
+                dateFormat={dateFormat}
                 selected={eventDate}
                 onChange={d => { this.setState({ eventDate: d}) }}
                 showYearDropdown={true}

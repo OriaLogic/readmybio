@@ -56,6 +56,7 @@ const fetchEventAndTransition = (nextState, replace, callback) => {
   store.dispatch(fetchEvent(userId, eventId))
   .then(() => callback())
   .catch(error => {
+    console.log(error)
     replace(`/users/${userId}/categories`);
     // replace(`/users/${currentUserId}/categories`);
     callback();

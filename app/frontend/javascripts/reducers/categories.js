@@ -1,6 +1,7 @@
 import {
   FETCH_DATA_SUCCESS,
-  CREATE_EVENT_SUCCESS
+  CREATE_EVENT_SUCCESS,
+  UPDATE_EVENT_SUCCESS
 } from '../constants/actionTypes';
 
 import { forEach } from 'lodash';
@@ -19,7 +20,7 @@ const categories = (state = initialState, action) => {
         ...state,
         [action.user.id]: categories
       };
-    case CREATE_EVENT_SUCCESS:
+    case CREATE_EVENT_SUCCESS, UPDATE_EVENT_SUCCESS:
       categories = {};
       forEach(action.categories, cat => categories[cat.id] = cat);
       return {

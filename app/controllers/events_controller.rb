@@ -42,8 +42,12 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event.update(event_params)
-    render json: normalize_for_json(@event)
+    # byebug
+    # @event.update(event_params)
+    render json: normalize_for_json({
+      event: @event,
+      tags: @event.tags
+    })
   end
 
   def images
