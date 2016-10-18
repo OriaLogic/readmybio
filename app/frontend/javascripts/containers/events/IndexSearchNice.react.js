@@ -3,6 +3,7 @@ import { setFilter } from '../../actions/events';
 import React, { Component, PropTypes } from 'react';
 import TagSelector from '../../components/categories/TagSelector.react';
 import DatePicker from 'react-datepicker';
+import { compressedFormat as dateFormat } from '../../constants/date';
 import moment from 'moment';
 
 const IndexSearch = ({
@@ -21,7 +22,7 @@ const IndexSearch = ({
           onChange={(e) => setFilterTitle(displayedUserId, e.target.value)}
         />
       </div>
-      <div className="form-group" style={{ marginRight: 50 }}>
+      <div className="form-group" style={{compressedFormat marginRight: 50 }}>
         <label style={{ marginRight: 10 }}>Tag</label>
         <TagSelector
           onChange={tagId => setFilterTag(displayedUserId, tagId)}
@@ -35,12 +36,14 @@ const IndexSearch = ({
           selected={filter.startDate}
           onChange={startDate => setFilterStartDate(displayedUserId, startDate)}
           showYearDropdown={true}
+          dateFormat={dateFormat}
         />
       <label style={{ marginLeft: 10, marginRight: 10 }}>and</label>
         <DatePicker
           selected={filter.endDate}
           onChange={endDate => setFilterEndDate(displayedUserId, endDate)}
-          showYearDropdown={true}Title
+          showYearDropdown={true}
+          dateFormat={dateFormat}
         />
       </div>
     </form>
