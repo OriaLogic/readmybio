@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { UserEventPath, UserEventsPath } from '../../helpers/Routes';
+import { UserEventPath } from '../../helpers/Routes';
 import TagFinder from '../../containers/tags/FormFinder.react';
 import { filter } from 'lodash';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import FileUploader from '../images/FileUploader.react';
 import { Link } from 'react-router';
-import { keys } from 'lodash';
+import { keys, difference } from 'lodash';
 import { compressedFormat as dateFormat } from '../../constants/date';
 
 class EditEvent extends Component {
@@ -23,11 +23,26 @@ class EditEvent extends Component {
     quickDescription: this.props.event.quick_description,
     fullDescription: this.props.event.full_description,
     selectedTagIds: this.props.event.tag_ids,
-    eventDate: moment(this.props.event.event_date)
+    eventDate: moment(this.props.event.event_date),
+    images: keys(this.props.event.images).map(imageId => this.props.event.images[imageId])
+  }
+
+  onImageDrop = (files) => {
+    const { images } = this.state;
+    this.setState({
+      images: [...images, ...files]
+    });
+  }
+
+  onImageRemove = imageId => {
+    const { images } = this.state;
+    this.setState({
+      images: images.filter(image => image.preview !== imageId && image.public_id !== imageId)
+    });
   }
 
   render () {
-    const { updateEvent, afterUpdate, userId } = this.props;
+    const { updateEvent, afterUpdate, userId, event } = this.props;
     const { title, quickDescription, fullDescription, selectedTagIds, eventDate, images } = this.state;
 
     return (
@@ -40,12 +55,19 @@ class EditEvent extends Component {
             }}
             onSubmit={ e => {
               e.preventDefault();
+              const removed_image_ids = difference(
+                keys(this.props.event.images),
+                images.filter(image => image.public_id).map(image => image.public_id)
+              );
+
               updateEvent(userId, {
-                title: title,
+                title,
                 quick_description: quickDescription,
                 full_description: fullDescription,
                 tag_ids: selectedTagIds,
-                event_date: eventDate
+                event_date: eventDate.toString(),
+                images,
+                removed_image_ids
               }).then((e) => {
                 afterUpdate(e);
               })
@@ -123,11 +145,19 @@ class EditEvent extends Component {
               />
             </div>
 
+            <FileUploader
+              onDrop={this.onImageDrop}
+              files={images}
+              maxFiles={6}
+              mimeType={'image/*'}
+              onRemove={this.onImageRemove}
+            />
+
             <div
               className='clearfix'>
               <Link
                 className='pull-left'
-                to={UserEventsPath('me')}
+                to={UserEventPath('me', event.id)}
                 style={{ padding: '6px 12px', paddingLeft: 0 }}>
                 <i className='glyphicon glyphicon-arrow-left' style={{ marginRight: 5 }}/>
                 Cancel

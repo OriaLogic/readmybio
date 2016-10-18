@@ -19,41 +19,67 @@ const EventsIndexComponent = ({
   } else if (eventsKeys.length === 0) {
     content = <NoEventPlaceholder />
   } else {
-    let div1Content = [], div2Content = [], div3Content = [], div4Content = [], i = 0;
+  //  let div1Content = [], div2Content = [], div3Content = [], div4Content = [], i = 0;
+  //   forEach(eventsKeys.slice(0, showEventsNb), eventId => {
+  //     const e = events[eventId];
+  //     let eventBox = (
+  //       <EventBox
+  //         event={e}
+  //         key={e.id}
+  //         canEdit={canEdit}
+  //         params={params}
+  //         categories={categories}
+  //       />
+  //     );
+  //
+  //     switch (i % 4) {
+  //       case 0: div1Content.push(eventBox); break;
+  //       case 1: div2Content.push(eventBox); break;
+  //       case 2: div3Content.push(eventBox); break;
+  //       case 3: div4Content.push(eventBox); break;
+  //     }
+  //
+  //     i ++;
+  //   });
+  //
+  //   content = (
+  //     <div className='row'>
+  //       <div className='col-md-3'>{div1Content}</div>
+  //       <div className='col-md-3'>{div2Content}</div>
+  //       <div className='col-md-3'>{div3Content}</div>
+  //       <div className='col-md-3'>{div4Content}</div>
+  //     </div>
+  //   );
 
+    let i = 0, rows = [];
+    const eventsToShow = eventsKeys.slice(0, showEventsNb);
 
-    forEach(eventsKeys.slice(0, showEventsNb), eventId => {
-      const e = events[eventId];
-      let eventBox = (
-        <EventBox
-          event={e}
-          key={e.id}
-          canEdit={canEdit}
-          params={params}
-          categories={categories}
-        />
+    while (i < eventsToShow.length) {
+      rows.push(
+        <div key={i / 4} className='row'>
+          {
+            eventsToShow.slice(i, i + 4).map(eventId => {
+              const e = events[eventId];
+              return (
+                <div key={eventId} className='col-md-3'>
+                  <EventBox
+                    event={e}
+                    canEdit={canEdit}
+                    params={params}
+                    categories={categories}
+                    />
+                </div>
+              );
+            })
+          }
+        </div>
       );
 
-      switch (i % 4) {
-        case 0: div1Content.push(eventBox); break;
-        case 1: div2Content.push(eventBox); break;
-        case 2: div3Content.push(eventBox); break;
-        case 3: div4Content.push(eventBox); break;
-      }
+      i += 4;
+    }
 
-      i ++;
-    });
-
-    content = (
-      <div className='row'>
-        <div className='col-md-3'>{div1Content}</div>
-        <div className='col-md-3'>{div2Content}</div>
-        <div className='col-md-3'>{div3Content}</div>
-        <div className='col-md-3'>{div4Content}</div>
-      </div>
-    );
+    content = rows;
   }
-
 
   // If not loading and eventsList is not empty
   return (

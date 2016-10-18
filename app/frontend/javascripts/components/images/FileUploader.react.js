@@ -54,7 +54,7 @@ export default class FileUploader extends Component {
               return (
                 <div
                   className='image-container'
-                  key={file.preview}>
+                  key={file.preview || file.public_id}>
                   <RemovableImage file={file} maxWidth={100} maxHeight={100} onRemove={onRemove} />
                 </div>
               )

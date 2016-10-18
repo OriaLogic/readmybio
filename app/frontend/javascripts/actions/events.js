@@ -60,12 +60,17 @@ export const createEvent = (e) => (dispatch, getState) => {
     event = event;
     tags = tags;
 
-    let data = new FormData();
-    forEach(e.images, image => data.append(`images_${image.name}`, image));
-    return defaultPost(CreateEventImagesJSONPath(event.id), {
-      body: data,
-      headers: {}
-    });
+    if (e.images && e.images.length > 0) {
+      let data = new FormData();
+      forEach(e.images, image => data.append(`images_${image.name}`, image));
+      return defaultPost(CreateEventImagesJSONPath(event.id), {
+        body: data,
+        headers: {}
+      });
+    } else {
+      return event;
+    }
+
   }).then((event) => {
       dispatch({
         type: CREATE_EVENT_SUCCESS,
@@ -85,27 +90,32 @@ export const updateEvent = (userId, eventId, eventParams) => dispatch => {
     userId
   });
 
-  let e, t;
+  let event, tags;
   return defaultPatch(UpdateEventJSONPath(userId, eventId), {
     body: JSON.stringify({ event: eventParams })
-  }).then(({ event, tags }) => {
-    e = event;
-    t = tags;
+  }).then(({ event: e, tags: t }) => {
+    event = e;
+    tags = t;
 
-    // let data = new FormData();
-    // forEach(e.images, image => data.append(`images_${image.name}`, image));
-    // return defaultPost(CreateEventImagesJSONPath(event.id), {
-    //   body: data,
-    //   headers: {}
-    // });
+    let data = new FormData();
+    const toUploadImages = eventParams.images.filter(image => image.preview);
 
-    return event;
+    if (toUploadImages && toUploadImages.length > 0) {
+      forEach(toUploadImages, image => data.append(`images_${image.name}`, image));
+
+      return defaultPost(CreateEventImagesJSONPath(event.id), {
+        body: data,
+        headers: {}
+      });
+    } else {
+      return event;
+    }
   }).then(event => {
       dispatch({
         type: UPDATE_EVENT_SUCCESS,
         event,
         userId,
-        categories: t
+        categories: tags
       });
 
       return event;

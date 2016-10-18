@@ -64,7 +64,7 @@ const Event = ({ event, categories, canEdit, location, params }) => {
           {
             event.quick_description &&
             <p
-              style={{ marginBottom: 30 }}>Cancel
+              style={{ marginBottom: 30 }}>
               {event.quick_description}
             </p>
           }
@@ -72,7 +72,7 @@ const Event = ({ event, categories, canEdit, location, params }) => {
           {
             event.full_description &&
             <p
-              style={{ marginBottom: 30 }}>Cancel
+              style={{ marginBottom: 30 }}>
               {event.full_description}
             </p>
           }
