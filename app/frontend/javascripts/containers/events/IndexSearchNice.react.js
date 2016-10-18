@@ -22,7 +22,7 @@ const IndexSearch = ({
           onChange={(e) => setFilterTitle(displayedUserId, e.target.value)}
         />
       </div>
-      <div className="form-group" style={{compressedFormat marginRight: 50 }}>
+      <div className="form-group" style={{ marginRight: 50 }}>
         <label style={{ marginRight: 10 }}>Tag</label>
         <TagSelector
           onChange={tagId => setFilterTag(displayedUserId, tagId)}
