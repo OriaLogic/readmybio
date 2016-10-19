@@ -8,7 +8,7 @@ import { compressedFormat } from '../../constants/date';
 import { keys } from 'lodash';
 import { generateCategoryColorClass } from '../../helpers/Colors';
 
-const EventBox = ({ event: ev, canEdit, params, categories }) => {
+const EventBox = ({ event: ev, canEdit, params, categories, deleteEvent, userId: realUserId }) => {
   const { userId, categoryId } = params;
   const firstCategory = (ev.tag_ids && ev.tag_ids.length) ? categories[ev.tag_ids[0]] : null
 
@@ -37,7 +37,14 @@ const EventBox = ({ event: ev, canEdit, params, categories }) => {
                 <i className='glyphicon glyphicon-pencil' />
               </Link>
 
-              <a href='#'>
+              <a
+                href='#'
+                onClick={e => {
+                  e.preventDefault();
+                  if (window.confirm('Are you sure you want to delete this event?')) {
+                    deleteEvent(realUserId, ev.id)
+                  }
+                }}>
                 <i className='glyphicon glyphicon-remove' />
               </a>
             </span>

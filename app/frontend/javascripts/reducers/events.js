@@ -33,6 +33,14 @@ const events = (state = initialState, action) => {
           [action.event.id]: event(undefined, action)
         }
       };
+    case DELETE_EVENT_SUCCESS:
+      delete state[action.userId][action.eventId];
+      return {
+        ...state,
+        [action.userId]: {
+          ...state[action.userId]
+        }
+      }
     case FETCH_EVENT_SUCCESS:
       const userEvents = state[action.userId];
       return {

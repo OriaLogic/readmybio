@@ -9,9 +9,9 @@ import { generateCategoryColorClass } from '../../helpers/Colors';
 import ImageGallery from 'react-image-gallery';
 import { buildCloudinaryUrl, SCALED_100_75 } from '../../constants/cloudinary';
 
-const Event = ({ event, categories, canEdit, location, params }) => {
+const Event = ({ event, categories, canEdit, location, params, userId, deleteEvent }) => {
   const fromCategory = location.query.from_category || 'all';
-  const { userId, eventId } = params;
+  const { eventId } = params;
   const images = keys(event.images).map(imageId => {
     let image = event.images[imageId];
 
@@ -95,17 +95,35 @@ const Event = ({ event, categories, canEdit, location, params }) => {
           style={{ marginTop: 30 }}>
           <Link
             className='pull-left'
-            to={UserEventsPath(userId)}
+            to={UserEventsPath(canEdit ? 'me' : userId)}
             style={{ padding: '6px 12px', paddingLeft: 0 }}>
             <i className='glyphicon glyphicon-arrow-left' style={{ marginRight: 5 }}/>
             Back to list
           </Link>
 
-          <Link
-            to={EditUserEventPath(userId, eventId, fromCategory)}
-            className="btn btn-success btn-square btn-empty pull-right">
-            Edit event
-          </Link>
+          {
+            canEdit &&
+            <div className='pull-right'>
+              <a
+                onClick={e => {
+                  e.preventDefault();
+                  if (window.confirm('Are you sure you want to delete this event?')) {
+                    deleteEvent(userId);
+                  }
+                }}
+                href="#"
+                className="btn btn-danger btn-square btn-empty"
+                style={{ marginRight: 10 }}>
+                Delete event
+              </a>
+
+              <Link
+                to={EditUserEventPath(userId, eventId, fromCategory)}
+                className="btn btn-success btn-square btn-empty">
+                Edit event
+              </Link>
+            </div>
+          }
         </div>
       </div>
     </div>

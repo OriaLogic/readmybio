@@ -23,3 +23,14 @@
 .btn.btn-square {
   border-radius: 0px;
 }
+
+.btn.btn-empty.btn-danger {
+  background: none;
+  border: 1px solid $btn-danger-border;
+  color: $btn-danger-border;
+
+  &:hover {
+    border-color: darken($btn-danger-border, 10%);
+    color: darken($btn-danger-border, 10%);
+  }
+}

@@ -70,3 +70,16 @@ export const defaultPatch = (url, options = {}) => {
 
   return defaultPost(url, options);
 }
+
+export const defaultDelete = (url, options = {}) => {
+  options = {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    ...options
+  };
+
+  return defaultFetch(url, options);
+}

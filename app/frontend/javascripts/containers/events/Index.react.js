@@ -5,6 +5,7 @@ import { keys } from 'lodash';
 import { createSelector } from 'reselect'
 import moment from 'moment';
 import { showMoreEvents } from '../../actions/users';
+import { deleteEvent } from '../../actions/events';
 
 const getVisibilityFilter = ({ events }) => events.filter;
 const getEvents = ({ events, users }) => events[users.displayedUserId];
@@ -50,7 +51,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    showMoreEvents: (userId) => { dispatch(showMoreEvents(userId)); }
+    showMoreEvents: (userId) => { dispatch(showMoreEvents(userId)); },
+    deleteEvent: (userId, eventId) => { dispatch(deleteEvent(userId, eventId)); }
   }
 }
 

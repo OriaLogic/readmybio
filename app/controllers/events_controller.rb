@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :authorize_user, only: [:show]
-  before_action :set_event, only: [:show, :update, :images, :pdfs]
-  before_action :check_event_of_current_user, only: [:update]
+  before_action :set_event, only: [:show, :update, :images, :pdfs, :destroy]
+  before_action :check_event_of_current_user, only: [:update, :destroy]
 
   def index
     render json: normalize_for_json(current_user.events)
@@ -73,6 +73,18 @@ class EventsController < ApplicationController
     render json: normalize_for_json(@event)
   end
 
+  def destroy
+    if @event.images && @event.images.keys.size > 0
+      Cloudinary::Api.delete_resources(@event.images.keys, :keep_original => false)
+    end
+
+    @event.destroy
+    render json: normalize_for_json({
+      event_id: params[:id],
+      tags: current_user.tags
+    })
+  end
+
   private
   def event_params
     par = params.require(:event).permit(:title, :event_date, :quick_description, :full_description, :tag_ids => [])
@@ -97,8 +109,9 @@ class EventsController < ApplicationController
 
   def create_tags_for_event(e_params)
     tags = []
+    e_params[:tag_ids] ||= []
 
-    tag_ids = e_params[:tag_ids] = e_params[:tag_ids].map do |tag_id|
+    tag_ids = e_params[:tag_ids].map do |tag_id|
       matchingTag = current_user.tags.or({ :id => tag_id }, { :name => tag_id }).first
 
       if !matchingTag

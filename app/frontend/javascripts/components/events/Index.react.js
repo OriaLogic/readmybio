@@ -10,7 +10,7 @@ import IndexSearch from '../../containers/events/IndexSearchNice.react';
 
 const EventsIndexComponent = ({
   filter, categories, canEdit, events, loading, params, showEventsNb, displayedUserId,
-  showMoreEvents
+  showMoreEvents, deleteEvent
 }) => {
   let content, eventsKeys = keys(events);
 
@@ -67,7 +67,9 @@ const EventsIndexComponent = ({
                     canEdit={canEdit}
                     params={params}
                     categories={categories}
-                    />
+                    deleteEvent={deleteEvent}
+                    userId={displayedUserId}
+                  />
                 </div>
               );
             })
@@ -125,7 +127,9 @@ EventsIndexComponent.propTypes = {
   canEdit: PropTypes.bool.isRequired,
   events: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
-  categories: PropTypes.object.isRequired
+  categories: PropTypes.object.isRequired,
+  showMoreEvents: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired
 }
 
 export default EventsIndexComponent;

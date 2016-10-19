@@ -3,10 +3,13 @@ import {
   CREATE_EVENT, CREATE_EVENT_SUCCESS,
   FETCH_EVENT, FETCH_EVENT_SUCCESS,
   UPDATE_EVENT, UPDATE_EVENT_SUCCESS,
+  DELETE_EVENT, DELETE_EVENT_SUCCESS,
 } from '../constants/actionTypes';
 import { EventsJSONPath, EventJSONPath, CreateEventJSONPath, CreateEventImagesJSONPath, UpdateEventJSONPath } from '../helpers/APIRoutes';
-import { defaultFetch, defaultPost, defaultPatch } from '../helpers/API';
+import { UserEventsPath } from '../helpers/Routes';
+import { defaultFetch, defaultPost, defaultPatch, defaultDelete } from '../helpers/API';
 import { forEach } from 'lodash';
+import { syncedHistory } from '../store';
 
 export const fetchEventsForUserAndCategory = (userId, categoryId) => dispatch => {
   dispatch({
@@ -129,4 +132,25 @@ export const setFilter = (userId, value, name) => {
     value,
     userId
   }
+}
+
+export const deleteEvent = (userId, eventId) => dispatch => {
+  dispatch({
+    type: DELETE_EVENT,
+    eventId,
+    userId
+  });
+
+  return defaultDelete(EventJSONPath(userId, eventId)).then(({ event_id: eventId, tags }) => {
+    syncedHistory.push(UserEventsPath())
+
+    dispatch({
+      type: DELETE_EVENT_SUCCESS,
+      eventId,
+      categories: tags,
+      userId
+    });
+
+    return eventId;
+  });
 }
