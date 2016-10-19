@@ -118,7 +118,7 @@ const Event = ({ event, categories, canEdit, location, params, userId, deleteEve
               </a>
 
               <Link
-                to={EditUserEventPath(userId, eventId, fromCategory)}
+                to={EditUserEventPath('me', eventId, fromCategory)}
                 className="btn btn-success btn-square btn-empty">
                 Edit event
               </Link>

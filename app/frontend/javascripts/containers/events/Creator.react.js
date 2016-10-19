@@ -10,11 +10,13 @@ import moment from 'moment';
 import FileUploader from '../../components/images/FileUploader.react';
 import { Link } from 'react-router';
 import { compressedFormat as dateFormat } from '../../constants/date';
+import EditionErrors from '../../components/events/EditionErrors.react';
 
 const BASE_STATE = {
   selectedTagIds: [],
   eventDate: moment(),
-  images: []
+  images: [],
+  errors: []
 };
 
 export default class EventCreator extends Component {
@@ -39,9 +41,30 @@ export default class EventCreator extends Component {
     });
   }
 
+  validateSubmission = () => {
+    const errors = []
+    if (!this.titleInput.value || !this.titleInput.value.trim().length > 0) {
+      errors.push('Title is a mandatory field.');
+    }
+
+    if (!this.quickDescriptionTextArea.value || !this.quickDescriptionTextArea.value.trim().length > 0) {
+      errors.push('Quick description is a mandatory field.');
+    }
+
+    if (this.state.selectedTagIds.length === 0) {
+      errors.push('Event must have at least one tag.');
+    }
+
+    this.setState({
+      errors: errors
+    });
+
+    return errors.length === 0;
+  }
+
   render () {
     const { create, afterCreate, eventsCount } = this.props;
-    const { selectedTagIds, eventDate, images } = this.state;
+    const { selectedTagIds, eventDate, images, errors } = this.state;
 
     return (
       <div className='row event-creator'>
@@ -53,18 +76,20 @@ export default class EventCreator extends Component {
             }}
             onSubmit={ e => {
               e.preventDefault();
-              create({
-                title: this.titleInput.value,
-                quick_description: this.quickDescriptionTextArea.value,
-                full_description: this.fullDescriptionTextArea.value,
-                tag_ids: selectedTagIds,
-                event_date: eventDate,
-                images
-              }).then((e) => {
-                this.setState(BASE_STATE);
-                this.form.reset();
-                afterCreate(e);
-              })
+              if (this.validateSubmission()) {
+                create({
+                  title: this.titleInput.value,
+                  quick_description: this.quickDescriptionTextArea.value,
+                  full_description: this.fullDescriptionTextArea.value,
+                  tag_ids: selectedTagIds,
+                  event_date: eventDate,
+                  images
+                }).then((e) => {
+                  this.setState(BASE_STATE);
+                  this.form.reset();
+                  afterCreate(e);
+                })
+              }
             }}
             style={{ marginBottom: 20 }}>
             <div
@@ -137,6 +162,11 @@ export default class EventCreator extends Component {
               mimeType={'image/*'}
               onRemove={this.onImageRemove}
             />
+
+            {
+              errors.length > 0 &&
+              <EditionErrors errors={errors} />
+            }
 
             <div
               className='clearfix'>

@@ -8,6 +8,7 @@ import FileUploader from '../images/FileUploader.react';
 import { Link } from 'react-router';
 import { keys, difference } from 'lodash';
 import { compressedFormat as dateFormat } from '../../constants/date';
+import EditionErrors from './EditionErrors.react';
 
 class EditEvent extends Component {
   static propTypes = {
@@ -24,7 +25,8 @@ class EditEvent extends Component {
     fullDescription: this.props.event.full_description,
     selectedTagIds: this.props.event.tag_ids,
     eventDate: moment(this.props.event.event_date),
-    images: keys(this.props.event.images).map(imageId => this.props.event.images[imageId])
+    images: keys(this.props.event.images).map(imageId => this.props.event.images[imageId]),
+    errors: []
   }
 
   onImageDrop = (files) => {
@@ -41,9 +43,32 @@ class EditEvent extends Component {
     });
   }
 
+  validateSubmission = () => {
+    const errors = [];
+    const { title, quickDescription, selectedTagIds } = this.state;
+
+    if (!title || !title.trim().length > 0) {
+      errors.push('Title is a mandatory field.');
+    }
+
+    if (!quickDescription || !quickDescription.trim().length > 0) {
+      errors.push('Quick description is a mandatory field.');
+    }
+
+    if (selectedTagIds.length === 0) {
+      errors.push('Event must have at least one tag.');
+    }
+
+    this.setState({
+      errors: errors
+    });
+
+    return errors.length === 0;
+  }
+
   render () {
     const { updateEvent, afterUpdate, userId, event } = this.props;
-    const { title, quickDescription, fullDescription, selectedTagIds, eventDate, images } = this.state;
+    const { title, quickDescription, fullDescription, selectedTagIds, eventDate, images, errors } = this.state;
 
     return (
       <div className='row event-editor'>
@@ -55,22 +80,25 @@ class EditEvent extends Component {
             }}
             onSubmit={ e => {
               e.preventDefault();
-              const removed_image_ids = difference(
-                keys(this.props.event.images),
-                images.filter(image => image.public_id).map(image => image.public_id)
-              );
 
-              updateEvent(userId, {
-                title,
-                quick_description: quickDescription,
-                full_description: fullDescription,
-                tag_ids: selectedTagIds,
-                event_date: eventDate.toString(),
-                images,
-                removed_image_ids
-              }).then((e) => {
-                afterUpdate(e);
-              })
+              if (this.validateSubmission()) {
+                const removed_image_ids = difference(
+                  keys(this.props.event.images),
+                  images.filter(image => image.public_id).map(image => image.public_id)
+                );
+
+                updateEvent(userId, {
+                  title,
+                  quick_description: quickDescription,
+                  full_description: fullDescription,
+                  tag_ids: selectedTagIds,
+                  event_date: eventDate.toString(),
+                  images,
+                  removed_image_ids
+                }).then((e) => {
+                  afterUpdate(e);
+                })
+              }
             }}
             style={{ marginBottom: 20 }}>
             <div
@@ -152,6 +180,11 @@ class EditEvent extends Component {
               mimeType={'image/*'}
               onRemove={this.onImageRemove}
             />
+
+            {
+              errors.length > 0 &&
+              <EditionErrors errors={errors} />
+            }
 
             <div
               className='clearfix'>
